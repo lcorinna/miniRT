@@ -6,7 +6,7 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 17:36:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/06/28 17:42:05 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/06/28 23:24:48 by ayajirob         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,3 +47,4 @@ re:				fclean all
 -include $(DEP)
 
 .PHONY:		all libmake clean fclean re	
+
