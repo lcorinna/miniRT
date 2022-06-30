@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:56 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/06/28 17:35:57 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/06/29 20:15:35 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ t_vec3	*ft_s_mul(t_vec3 *a, float value)
 
 t_vec3	*ft_cross(t_vec3 *a, t_vec3 *b)
 {
-	t_vec3	*cross;
+	t_vec3	*cross_product;
 
-	cross = ft_new_vec3((a->y * b->z - a->z * b->y), \
+	cross_product = ft_new_vec3((a->y * b->z - a->z * b->y), \
 					(a->z * b->x - a->x * b->z), (a->x * b->y - a->y * b->x));
-	return (cross);
+	return (cross_product);
 }
 
 t_vec3	*reflect(t_vec3 *rd, t_vec3 *n)
@@ -53,3 +53,11 @@ t_vec3	*reflect(t_vec3 *rd, t_vec3 *n)
 	reflect = ft_sub(rd, ft_s_mul(n, (2 * ft_dot(n, rd))));
 	return (reflect);
 }
+
+/*
+сложение (addition)
+умножение (multiplication)
+скалярное умножение (scalar multiplication)
+векторное произведение (cross product)
+отражение (reflect)
+*/

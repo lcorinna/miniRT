@@ -6,21 +6,22 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 17:36:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/06/28 23:24:48 by ayajirob         ###   ########.fr        #
+#    Updated: 2022/06/30 19:53:27 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_MINIRT	=	miniRT
 
-MINIRT		=	minirt.c \
+MINIRT		=	minirt.c parser.c scene.c\
 				vec3_one.c vec3_two.c \
-				camera.c scene.c sphere_interesect.c sphere.c trace_ray.c
+				camera.c sphere_interesect.c sphere.c trace_ray.c \
+				buttons.c
 
 OBJ_MINIRT	=	$(SRC:.c=.o)
 
 FLAG_MLX	=	-lmlx -framework OpenGL -framework AppKit
 
-CFLAGC		=	-Wall -Wextra -Werror -MMD -g #-fsanitize=address
+CFLAGC		=	-Wall -Wextra -Werror -MMD -g #-fsanitize=address # Leaks --atExit -- ./miniRT
 
 SRC_PATH	=	./srcs/
 

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/06/28 18:02:13 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:54:34 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ typedef struct s_main
 	char			*name_win; //поставить в окно запуска программы
 }	t_main;
 
+/*parser*/
+int			ft_parser(int argc, char **argv, t_main *data);
+
 /*vec3_one*/
 t_vec3		*ft_new_vec3(float x, float y, float z);
 t_vec3		*ft_sub(t_vec3 *a, t_vec3 *b);
@@ -105,6 +108,10 @@ t_vplane	*ft_get_view_plane(float width, float height, float fov);
 void		ray_tracing(void *mlx, void *window, t_scene *scene);
 
 int			ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_sphere *sphere);
+
+int			ft_buttons(int key, t_main *data);
+
+void		ft_program_completion(t_main *data, char *error, int flag);
 
 #endif
 
