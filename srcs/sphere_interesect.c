@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:51:29 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/06/30 18:02:44 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/06 19:52:13 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ int	ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_sphere *sphere)
 	float	discr;
 	float	dist_1;
 	float	dist_2;
-	t_vec3	*cam_sphere;
+	t_vec3	cam_sphere;
 
-	dist_1 = 0;
-	dist_2 = 0;
-	cam_sphere = ft_sub(cam->origin, sphere->center);
-	b = 2 * (ft_dot(cam_sphere, ray));
-	c = ft_dot(cam_sphere, cam_sphere) - (sphere->rad * sphere->rad);
-	free(cam_sphere);
+	// printf("HERE\n"); //del
+	cam_sphere = ft_sub(&cam->origin, &sphere->center);
+	b = 2 * (ft_dot(&cam_sphere, ray));
+	// printf("b - %f\n", b); //del
+	// sleep(1);
+	c = ft_dot(&cam_sphere, &cam_sphere) - (sphere->rad * sphere->rad);
+	// printf("cam_sphere - %f\n", cam_sphere.x); //del
+	// free(cam_sphere);
 	discr = (b * b) - (4 * c);
 	if (discr < 0)
 		return (0);

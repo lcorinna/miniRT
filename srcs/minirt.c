@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/06/30 19:53:51 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:05:20 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	ft_program_completion(t_main *data, char *error, int flag)
 	exit (flag);
 }
 
-int	ft_draw(t_main *data, t_scene *scene)
+// void	ft_calibration(t_vec3 *a, t_vec3 *b)
+// {
+// }
+
+int	ft_initialization(t_main *data)
 {
 	data->mlx = malloc(sizeof(t_mlx));
 	if (!data->mlx)
@@ -32,7 +36,13 @@ int	ft_draw(t_main *data, t_scene *scene)
 	data->mlx->win = mlx_new_window(data->mlx->mlx, WIDTH, HEIGHT, "miniRT");
 	if (!data->mlx->win)
 		return (1); //обработать выход
-	ray_tracing(data->mlx->mlx, data->mlx->win, scene);
+	return (0);
+}
+
+int	ft_draw(t_main *data, t_scene *scene)
+{
+	// printf("HERE			HERE\n"); //del
+	ft_ray_tracing(data, data->mlx->mlx, data->mlx->win, scene);
 	mlx_hook(data->mlx->win, 2, (1L << 0), ft_buttons, data);
 	// mlx_hook(data->mlx->win, 17, (1L << 0), ft_red_cross, data);
 	mlx_loop(data->mlx->mlx);
@@ -45,6 +55,10 @@ int	main(int argc, char **argv)
 
 	data = (t_main){};
 	ft_parser(argc, argv, &data);
+	// printf("HERE\n"); //del
+	// ft_calibration(&data);
+	if (ft_initialization(&data))
+		ft_program_completion(&data, "", 1);
 	ft_draw(&data, data.scene);
 	return (0);
 }

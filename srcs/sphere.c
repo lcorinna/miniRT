@@ -6,20 +6,21 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:11:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/06/28 17:59:51 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:00:49 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-t_sphere	*ft_new_sphere(t_vec3 *center, float rad)
+t_sphere	*ft_new_sphere(t_vec3 *center, int color, float rad)
 {
 	t_sphere	*new;
 
 	new = malloc(sizeof(t_sphere));
 	if (!new)
 		return (NULL); //обработать
-	new->center = center;
+	new->center = *center;
+	new->color = color;
 	new->rad = rad;
 	new->next = NULL;
 	return (new);

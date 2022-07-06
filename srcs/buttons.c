@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 18:10:53 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/06/30 19:48:45 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/06 18:44:27 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,22 @@ void	ft_camera_movement(int key, t_main *data)
 {
 	t_vec3	*tmp;
 
-	free(data->scene->cams->origin);
 	if (key == 123)
-		tmp = ft_new_vec3(2, 0, 0);
+		*tmp = ft_new_vec3(1, 0, 0);
 	else if (key == 124)
-		tmp = ft_new_vec3(-2, 0, 0);
+		*tmp = ft_new_vec3(-1, 0, 0);
 	else if (key == 126)
-		tmp = ft_new_vec3(0, -2, 0);
+		*tmp = ft_new_vec3(0, -1, 0);
 	else if (key == 125)
-		tmp = ft_new_vec3(0, 2, 0);
+		*tmp = ft_new_vec3(0, 1, 0);
 	if (!tmp)
 		return ; //обработать выход
-	data->scene->cams->origin = ft_add(data->scene->cams->origin, tmp);
-	free(tmp);
-	if (!data->scene->cams->origin)
-		return ; //обработать выход
+	// printf("data->scene->cams->origin - %p\n", data->scene->cams->origin);
+	data->scene->cams->origin = ft_add(&data->scene->cams->origin, tmp);
+	// printf("data->scene->cams->origin - %p\n", data->scene->cams->origin);
+	// free(tmp);
 	mlx_clear_window(data->mlx->mlx, data->mlx->win);
-	ray_tracing(data->mlx->mlx, data->mlx->win, data->scene);
+	ft_ray_tracing(data, data->mlx->mlx, data->mlx->win, data->scene);
 }
 
 int	ft_buttons(int key, t_main *data)

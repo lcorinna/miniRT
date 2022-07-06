@@ -6,7 +6,7 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 17:36:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/06/30 19:53:27 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/07/06 17:30:05 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJ_MINIRT	=	$(SRC:.c=.o)
 
 FLAG_MLX	=	-lmlx -framework OpenGL -framework AppKit
 
-CFLAGC		=	-Wall -Wextra -Werror -MMD -g #-fsanitize=address # Leaks --atExit -- ./miniRT
+CFLAGC		=	-Wall -Wextra -Werror -MMD -g -fsanitize=address # Leaks --atExit -- ./miniRT
 
 SRC_PATH	=	./srcs/
 
