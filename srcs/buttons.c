@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 18:10:53 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/06 18:44:27 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/07 18:39:25 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,19 @@
 
 void	ft_camera_movement(int key, t_main *data)
 {
-	t_vec3	*tmp;
+	t_vec3	tmp;
 
 	if (key == 123)
-		*tmp = ft_new_vec3(1, 0, 0);
+		tmp = ft_new_vec3(1, 0, 0);
 	else if (key == 124)
-		*tmp = ft_new_vec3(-1, 0, 0);
+		tmp = ft_new_vec3(-1, 0, 0);
 	else if (key == 126)
-		*tmp = ft_new_vec3(0, -1, 0);
+		tmp = ft_new_vec3(0, -1, 0);
 	else if (key == 125)
-		*tmp = ft_new_vec3(0, 1, 0);
-	if (!tmp)
-		return ; //обработать выход
+		tmp = ft_new_vec3(0, 1, 0);
 	// printf("data->scene->cams->origin - %p\n", data->scene->cams->origin);
-	data->scene->cams->origin = ft_add(&data->scene->cams->origin, tmp);
+	data->scene->cam->origin = ft_add(&data->scene->cam->origin, &tmp);
 	// printf("data->scene->cams->origin - %p\n", data->scene->cams->origin);
-	// free(tmp);
 	mlx_clear_window(data->mlx->mlx, data->mlx->win);
 	ft_ray_tracing(data, data->mlx->mlx, data->mlx->win, data->scene);
 }
@@ -46,8 +43,6 @@ int	ft_buttons(int key, t_main *data)
 	int	i;
 
 	printf("key - %d\n", key); //del
-	// 	mlx_clear_window(data->tmp.mlx, data->tmp.win);
-	// 	ft_drawline(data);
 	if (key == 53)
 	{
 		if (mlx_destroy_window(data->mlx->mlx, data->mlx->win))

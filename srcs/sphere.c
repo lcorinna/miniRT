@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:11:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/06 20:00:49 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/07 19:42:44 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ t_sphere	*ft_new_sphere(t_vec3 *center, int color, float rad)
 	new->next = NULL;
 	return (new);
 }
+
+// нормаль сферы это продолжение радиуса из центра сферы
+// чтобы посчитать нормально нужно из точки вычесть координаты точки сферы
 
 void	ft_sphere_add_front(t_sphere **lst, t_sphere *new)
 {

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:37:16 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/06 20:39:25 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/07 16:40:22 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void	ft_ray_tracing(t_main *data, void *mlx, void *window, t_scene *scene)
 	float		x_ray;
 	float		y_ray;
 
-	vplane =  ft_get_view_plane(scene->width, scene->height, scene->cams->fov);
-	// printf("vplane - %p\n", vplane); //del
+	vplane =  ft_get_view_plane(scene->width, scene->height, scene->cam->fov);
 	if (!vplane)
 		return ; //обработать
 	mlx_y = 0;
@@ -44,7 +43,8 @@ void	ft_ray_tracing(t_main *data, void *mlx, void *window, t_scene *scene)
 		return ; //обработать
 	data->mlx->addr = mlx_get_data_addr(data->mlx->img, \
 	&data->mlx->bits_per_pixel, &data->mlx->line_length, &data->mlx->endian);
-
+	if (data->mlx->addr == NULL)
+		return ; //обработать
 	while (y_angle >= (scene->height / 2) * (-1))
 	{
 		y_ray = y_angle * vplane->y_pixel;
@@ -54,27 +54,12 @@ void	ft_ray_tracing(t_main *data, void *mlx, void *window, t_scene *scene)
 		{
 			x_ray = x_angle * vplane->x_pixel;
 			ray = ft_new_vec3(x_ray, y_ray, -1);
-			// printf("ray1 - %f\n", ray.x);
-			// printf("ray - %f\n", ray.y);
-			// printf("ray - %f\n\n", ray.z);
 			ft_norm(&ray);
-			// printf("ray2 - %f\n", ray.x);
-			// printf("ray - %f\n", ray.y);
-			// printf("ray - %f\n\n", ray.z);
-			// sleep(1); //del
-			if (ft_sphere_intersect(scene->cams, &ray, scene->sphere))
-				color = 255000000;
-				// color = 100000255;
-				// color = 16777215;
+			if (ft_sphere_intersect(scene->cam, &ray, scene->sh.sp))
+				color = 16777215;
 			else
 				color = BLACK;
-			// mlx_pixel_put(mlx, window, mlx_x, mlx_y, color); //вернуть когда все сломается
 			my_mlx_pixel_put(data, mlx_x, mlx_y, color);
-			// printf("mlx_x = %d,	mlx_y = %d\n", mlx_x, mlx_y); //del
-			// printf("ray - %p\n", ray); //del
-			// free(ray);
-			// printf("ray - %p\n", ray); //del
-			// sleep(5); //del
 			++x_angle;
 			++mlx_x;
 		}
@@ -86,7 +71,7 @@ void	ft_ray_tracing(t_main *data, void *mlx, void *window, t_scene *scene)
 	free(vplane);
 }
 
-t_vplane	*ft_get_view_plane(float width, float height, float fov) //fov
+t_vplane	*ft_get_view_plane(float width, float height, float fov)
 {
 	t_vplane	*vplane;
 	float		aspect_ratio;
@@ -94,14 +79,13 @@ t_vplane	*ft_get_view_plane(float width, float height, float fov) //fov
 	vplane = malloc(sizeof(t_vplane));
 	if (!vplane)
 		return (NULL); //обработать
-	aspect_ratio = width / height; //1.8 //соотношение сторон
+	aspect_ratio = width / height; //соотношение сторон
 	vplane->width = (tan(fov / 2 * (M_PI / 180))) * 2;
 	vplane->height = vplane->width / aspect_ratio;
-	vplane->x_pixel = vplane->width / width; //0.00125	
-	vplane->y_pixel = vplane->height / height; //0.74074
+	vplane->x_pixel = vplane->width / width;
+	vplane->y_pixel = vplane->height / height;
 	return (vplane); 
 }
-
 
 // color(vec3 color)
 // {
