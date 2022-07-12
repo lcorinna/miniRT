@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/12 19:21:06 by lcorinna         ###   ########.fr       */
+/*   Created: 2021/10/11 14:23:08 by lcorinna          #+#    #+#             */
+/*   Updated: 2021/10/25 22:43:50 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_isalnum(int q)
 {
-	t_main	data;
-
-	data = (t_main){};
-	ft_parser(argc, argv, &data);
-	// printf("HERE\n"); //del
-	// ft_calibration(&data, data.scene, data.scene->cam);
-	if (ft_initialization(&data, data.scene))
-		ft_program_completion(&data, "", 1);
-	ft_draw(&data, data.scene);
-	return (0);
+	if ((q > 47 && q < 58) || (q > 64 && q < 91) || (q > 96 && q < 123))
+		return (1);
+	else
+		return (0);
 }

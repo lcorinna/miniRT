@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/12 19:21:06 by lcorinna         ###   ########.fr       */
+/*   Created: 2021/10/16 16:36:11 by lcorinna          #+#    #+#             */
+/*   Updated: 2021/11/13 19:21:23 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_toupper(int i)
 {
-	t_main	data;
-
-	data = (t_main){};
-	ft_parser(argc, argv, &data);
-	// printf("HERE\n"); //del
-	// ft_calibration(&data, data.scene, data.scene->cam);
-	if (ft_initialization(&data, data.scene))
-		ft_program_completion(&data, "", 1);
-	ft_draw(&data, data.scene);
-	return (0);
+	if (i > 96 && i < 123)
+		i -= 32;
+	return (i);
 }

@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/12 19:21:06 by lcorinna         ###   ########.fr       */
+/*   Created: 2021/11/17 23:11:55 by lcorinna          #+#    #+#             */
+/*   Updated: 2021/11/21 13:14:36 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_lstsize(t_list *lst)
 {
-	t_main	data;
+	int	i;
 
-	data = (t_main){};
-	ft_parser(argc, argv, &data);
-	// printf("HERE\n"); //del
-	// ft_calibration(&data, data.scene, data.scene->cam);
-	if (ft_initialization(&data, data.scene))
-		ft_program_completion(&data, "", 1);
-	ft_draw(&data, data.scene);
-	return (0);
+	i = 1;
+	if (lst == NULL)
+		return (0);
+	while ((*lst).next != NULL)
+	{
+		lst = (*lst).next;
+		i++;
+	}
+	return (i);
 }

@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/12 19:21:06 by lcorinna         ###   ########.fr       */
+/*   Created: 2021/10/19 20:20:04 by lcorinna          #+#    #+#             */
+/*   Updated: 2021/11/13 19:18:15 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	t_main	data;
+	int				i;
+	unsigned char	*a;
+	unsigned char	*b;
 
-	data = (t_main){};
-	ft_parser(argc, argv, &data);
-	// printf("HERE\n"); //del
-	// ft_calibration(&data, data.scene, data.scene->cam);
-	if (ft_initialization(&data, data.scene))
-		ft_program_completion(&data, "", 1);
-	ft_draw(&data, data.scene);
+	i = 0;
+	a = (unsigned char *) s1;
+	b = (unsigned char *) s2;
+	while (i < (int) n)
+	{
+		if (a[i] != b[i])
+			return (a[i] - b[i]);
+		i++;
+	}
 	return (0);
 }

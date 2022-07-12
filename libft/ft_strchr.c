@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/12 19:21:06 by lcorinna         ###   ########.fr       */
+/*   Created: 2021/10/16 17:25:24 by lcorinna          #+#    #+#             */
+/*   Updated: 2021/11/13 19:19:18 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strchr(const char *s, int c)
 {
-	t_main	data;
+	char	*a;
+	char	i;
 
-	data = (t_main){};
-	ft_parser(argc, argv, &data);
-	// printf("HERE\n"); //del
-	// ft_calibration(&data, data.scene, data.scene->cam);
-	if (ft_initialization(&data, data.scene))
-		ft_program_completion(&data, "", 1);
-	ft_draw(&data, data.scene);
-	return (0);
+	i = (char) c;
+	a = (char *) s;
+	while (*a)
+	{
+		if (*a == i)
+			return (a);
+		a++;
+	}
+	if (*a == i)
+		return (a);
+	return (NULL);
 }

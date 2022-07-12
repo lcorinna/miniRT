@@ -6,13 +6,13 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 17:36:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/07/07 18:39:09 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/07/12 19:23:31 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_MINIRT	=	miniRT
 
-MINIRT		=	minirt.c \
+MINIRT		=	minirt.c program_completion.c\
 				parser.c vec3_one.c vec3_two.c scene.c camera.c sphere.c \
 				calibration.c \
 				draw.c buttons.c trace_ray.c sphere_interesect.c 

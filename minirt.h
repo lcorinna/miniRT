@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/07 18:36:02 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/12 19:22:19 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_scene
 {
 	// t_аmbient		*amb; //добавить когда появится общий свет
 	t_camera		*cam;
-	// t_light			*lit; //добавить когда появится точечный свет
+	// t_light			*lght; //добавить когда появится точечный свет
 	t_shapes		sh;
 	float			width;
 	float			height;
@@ -114,57 +114,61 @@ typedef struct s_mlx
 typedef struct s_main
 {
 	t_scene			*scene;
-	char			*name_win; //поставить в окно запуска программы
-	t_mlx			*mlx;
+	char			*n_wndw; //поставить в окно запуска программы
 	t_vec3			calib;
+	t_mlx			*mlx;
+	t_vplane		*vplane;
 }	t_main;
 
-/*parser*/
+/* parser */
 int			ft_parser(int argc, char **argv, t_main *data);
 
-/*vec3_one*/
+/* vec3_one */
 t_vec3		ft_new_vec3(float x, float y, float z);
 t_vec3		ft_sub(t_vec3 *a, t_vec3 *b);
 float		ft_length(t_vec3 *a);
 void		ft_norm(t_vec3 *a);
 float		ft_dot(t_vec3 *a, t_vec3 *b);
 
-/*vec3_two*/
+/* vec3_two */
 t_vec3		ft_add(t_vec3 *a, t_vec3 *b);
 t_vec3		ft_mul(t_vec3 *a, t_vec3 *b);
 t_vec3		ft_s_mul(t_vec3 *a, float value);
 t_vec3		ft_cross(t_vec3 *a, t_vec3 *b);
 t_vec3		reflect(t_vec3 *rd, t_vec3 *n);
 
-/*sphere*/
+/* sphere */
 t_sphere	*ft_new_sphere(t_vec3 *center, int color, float rad);
 void		ft_sphere_add_front(t_sphere **lst, t_sphere *new);
 t_sphere	*ft_sphere_last(t_sphere *lst);
 void		ft_sphere_add_back(t_sphere **lst, t_sphere *new);
 
-/*draw*/
-int			ft_initialization(t_main *data);
+/* draw */
+int			ft_initialization(t_main *data, t_scene *scene);
 int			ft_draw(t_main *data, t_scene *scene);
 
 t_camera	*ft_new_camera(t_vec3 *origin, t_vec3 *direction, float fov);
 
-/*scene*/
+/* scene */
 t_scene		*ft_new_scene(t_camera *cam, t_shapes *sh);
 t_shapes	ft_new_shapes(t_sphere	*sp);
 
 t_vplane	*ft_get_view_plane(float width, float height, float fov);
 
-/*calibration*/
+/* calibration */
 void		ft_calibration(t_main *data, t_scene *scene, t_camera *cam);
 
 void		ft_ray_tracing(t_main *data, void *mlx, void *window, t_scene *scene);
 
 int			ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_sphere *sphere);
+int			ft_pxl_color(t_main *data, t_scene *scene, t_shapes *sh, t_vec3 *ray);
 
 int			ft_buttons(int key, t_main *data);
+int			ft_exit_cross(int key, t_main *data);
 
+/* program_completion */
 void		ft_program_completion(t_main *data, char *error, int flag);
 
 #endif
 
-/**/
+/*  */

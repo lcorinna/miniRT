@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/12 19:21:06 by lcorinna         ###   ########.fr       */
+/*   Created: 2021/10/16 19:22:01 by lcorinna          #+#    #+#             */
+/*   Updated: 2021/11/13 19:20:37 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strrchr(const char *s, int c)
 {
-	t_main	data;
+	char	*a;
+	int		i;
+	char	m;
 
-	data = (t_main){};
-	ft_parser(argc, argv, &data);
-	// printf("HERE\n"); //del
-	// ft_calibration(&data, data.scene, data.scene->cam);
-	if (ft_initialization(&data, data.scene))
-		ft_program_completion(&data, "", 1);
-	ft_draw(&data, data.scene);
-	return (0);
+	m = (char) c;
+	i = 0;
+	a = (char *) s;
+	while (a[i])
+		i++;
+	if (c == '\0')
+		return (&a[i]);
+	while (i-- != 0)
+	{
+		if (a[i] == m)
+			return (a += i);
+		if (a[i + 1] == m)
+			return (&a[i + 1]);
+	}
+	return (NULL);
 }

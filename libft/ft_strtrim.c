@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/12 19:21:06 by lcorinna         ###   ########.fr       */
+/*   Created: 2021/11/01 11:20:59 by lcorinna          #+#    #+#             */
+/*   Updated: 2021/11/15 14:39:15 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	t_main	data;
+	char	*res;
+	int		start;
+	int		len_res;
 
-	data = (t_main){};
-	ft_parser(argc, argv, &data);
-	// printf("HERE\n"); //del
-	// ft_calibration(&data, data.scene, data.scene->cam);
-	if (ft_initialization(&data, data.scene))
-		ft_program_completion(&data, "", 1);
-	ft_draw(&data, data.scene);
-	return (0);
+	start = 0;
+	res = (char *)s1;
+	while (*res && ft_strchr(set, *res) != NULL)
+	{
+		res++;
+		start++;
+	}
+	len_res = ft_strlen(res);
+	res += (len_res - 1);
+	while (len_res > 0 && ft_strchr(set, *res) != NULL)
+	{
+		res--;
+		len_res--;
+	}
+	res = ft_substr(s1, start, len_res);
+	return (res);
 }

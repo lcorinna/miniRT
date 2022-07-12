@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/12 19:21:06 by lcorinna         ###   ########.fr       */
+/*   Created: 2021/10/16 20:26:32 by lcorinna          #+#    #+#             */
+/*   Updated: 2021/11/13 19:20:23 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	t_main	data;
+	int				i;
+	unsigned char	*a;
+	unsigned char	*b;
+	int				l;
 
-	data = (t_main){};
-	ft_parser(argc, argv, &data);
-	// printf("HERE\n"); //del
-	// ft_calibration(&data, data.scene, data.scene->cam);
-	if (ft_initialization(&data, data.scene))
-		ft_program_completion(&data, "", 1);
-	ft_draw(&data, data.scene);
+	a = (unsigned char *) s1;
+	b = (unsigned char *) s2;
+	i = 0;
+	l = (int) n;
+	if (l < 0)
+		return (-1);
+	while ((i < l) && (a[i] != '\0' || b[i] != '\0'))
+	{
+		if (a[i] != b[i])
+			return (a[i] - b[i]);
+		i++;
+	}
 	return (0);
 }

@@ -6,18 +6,11 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 18:10:53 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/07 18:39:25 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/12 19:46:52 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
-
-// int	ft_red_cross(int key, t_main *data)
-// {
-// 	// mlx_destroy_window(data->mlx->mlx, data->mlx->win);
-// 	mlx_clear_window(data->mlx->mlx, data->mlx->win);
-// 	exit (0);
-// }
 
 void	ft_camera_movement(int key, t_main *data)
 {
@@ -40,20 +33,26 @@ void	ft_camera_movement(int key, t_main *data)
 
 int	ft_buttons(int key, t_main *data)
 {
-	int	i;
-
 	printf("key - %d\n", key); //del
-	if (key == 53)
+	if (key == 53) 
 	{
+		mlx_clear_window(data->mlx->mlx, data->mlx->win);
+		// printf("%d adfsdfs\n", mlx_destroy_window(data->mlx->mlx, data->mlx->win));
 		if (mlx_destroy_window(data->mlx->mlx, data->mlx->win))
 			ft_program_completion(data, "mlx does not destroy the window", 1);
 		ft_program_completion(data, "", 0);
 	}
 	else if ((key >= 123 && key <= 126))
 		ft_camera_movement(key, data); //скорее всего не правильно
-	// else if (key >= 0 && key <= 273)
-	// 	key++;
-	// else
-	// 	exit (0);
+	return (0);
+}
+
+int	ft_exit_cross(int key, t_main *data)
+{
+	(void)key;
+	mlx_clear_window(data->mlx->mlx, data->mlx->win);
+	if (mlx_destroy_window(data->mlx->mlx, data->mlx->win))
+		ft_program_completion(data, "mlx does not destroy the window", 1);
+	ft_program_completion(data, "", 0);
 	return (0);
 }

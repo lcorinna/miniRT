@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/07 18:01:59 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/12 18:47:54 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ int	ft_parser(int argc, char **argv, t_main *data)
 	t_vec3		cam_origin;
 	t_vec3		cam_direction;
 
-	sphere_center = ft_new_vec3(3, 2, -32);
-	sphere = ft_new_sphere(&sphere_center, 16777215, 12 / 2);
+	// sphere_center = ft_new_vec3(0, 0, 0);
+	sphere_center = ft_new_vec3(12, 5, -32);
+	sphere = ft_new_sphere(&sphere_center, 16777215, 22 / 2);
 	sphere_center2 = ft_new_vec3(10, 6, -322);
 	sphere2 = ft_new_sphere(&sphere_center2, 255000000, 12 / 2);
 	ft_sphere_add_back(&sphere, sphere2);
-	cam_origin = ft_new_vec3(2, 0, 0);
+	cam_origin = ft_new_vec3(0, 0, 0);
 	cam_direction = ft_new_vec3(0, 0, -1);
 	cam = ft_new_camera(&cam_origin, &cam_direction, 70);
 	sh = ft_new_shapes(sphere);
