@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:37:16 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/12 18:40:51 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/13 12:58:43 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,10 @@ void	ft_ray_tracing(t_main *data, void *mlx, void *window, t_scene *scene)
 		++mlx_y;
 	}
 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, data->mlx->img, 0, 0);
-	printf("\ndata->mlx->img - %p\n", data->mlx->img); //del
-	printf("data->mlx->addr - %p\n", data->mlx->addr); //del
-	printf("data->mlx->addr - %s\n\n", data->mlx->addr); //del
-	write(1, "HERE1\n", 6); //del
+	// printf("\ndata->mlx->img - %p\n", data->mlx->img); //del
+	// printf("data->mlx->addr - %p\n", data->mlx->addr); //del
 	mlx_destroy_image(data->mlx->img, data->mlx->addr);
-	write(1, "HERE2\n", 6); //del
-	free(data->mlx->img);
+	free(data->mlx->img); //??
 }
 
 // color(vec3 color)

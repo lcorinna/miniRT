@@ -6,11 +6,11 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 17:36:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/07/12 19:23:31 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/07/13 19:09:56 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME_MINIRT	=	miniRT
+N_MINIRT	=	miniRT
 
 MINIRT		=	minirt.c program_completion.c\
 				parser.c vec3_one.c vec3_two.c scene.c camera.c sphere.c \
@@ -21,7 +21,7 @@ OBJ_MINIRT	=	$(SRC:.c=.o)
 
 FLAG_MLX	=	-lmlx -framework OpenGL -framework AppKit
 
-CFLAGC		=	-Wall -Wextra -Werror -MMD -O3 -msse4 -march=native -g -fsanitize=address # Leaks --atExit -- ./miniRT
+CFLAGC		=	-Wall -Wextra -Werror -MMD -g -fsanitize=address -O3 -msse4 -march=native # Leaks --atExit -- ./miniRT
 
 SRC_PATH	=	./srcs/
 
@@ -29,19 +29,29 @@ SRC			=	$(addprefix $(SRC_PATH), $(MINIRT))
 
 DEP			=	$(SRC:.c=.d)
 
-all:			$(NAME_MINIRT)
+PATH_LIBFT	=	./libft/
 
-$(NAME_MINIRT):	$(OBJ_MINIRT)
+LIBFT		=	libft.a 
+
+all:			libmake $(N_MINIRT)
+
+libmake: 
+	make -C $(PATH_LIBFT)
+	cp $(PATH_LIBFT)$(LIBFT) $(LIBFT)
+	
+$(N_MINIRT):	$(OBJ_MINIRT)
 	cc $(CFLAGS) $(FLAG_MLX) $(OBJ_MINIRT) -o $@
 
 %.o:			%.c minirt.h Makefile
 	gcc $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ_MINIRT) $(DEP)
+	rm -rf $(OBJ_MINIRT) $(DEP) $(LIBFT)
+	make clean -C $(PATH_LIBFT)
 
 fclean:			clean
-	rm -rf $(NAME_MINIRT)
+	rm -rf $(N_MINIRT)
+	make fclean -C $(PATH_LIBFT)
 
 re:				fclean all
 

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:38:49 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/12 19:29:56 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/13 13:11:02 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	ft_initialization(t_main *data, t_scene *scene)
 	data->vplane =  ft_get_view_plane(scene->width, scene->height, scene->cam->fov);
 	if (!data->vplane)
 		return (1); //обработать выход
-	mlx_hook(data->mlx->win, 2, (1L << 0), ft_buttons, data);
-	mlx_hook(data->mlx->win, 17, 1L << 0, ft_exit_cross, data);
+	mlx_hook(data->mlx->win, 2, 1L << 0, ft_buttons, data);
+	mlx_hook(data->mlx->win, 17, 0, ft_exit_cross, data);
 	// mlx_hook(mlx->win_ptr, 02, 1L << 0, esc_key, (void *)mlx);
 	return (0);
 }
@@ -51,9 +51,6 @@ int	ft_initialization(t_main *data, t_scene *scene)
 int	ft_draw(t_main *data, t_scene *scene)
 {
 	ft_ray_tracing(data, data->mlx->mlx, data->mlx->win, scene);
-	// mlx_hook(data->mlx->win, 2, (1L << 0), ft_buttons, data);
-	// mlx_hook(data->mlx->win, 17, (1L << 0), ft_red_cross, data);
-	printf("HERE3\n"); //del
 	mlx_loop(data->mlx->mlx);
 	return (0);
 }

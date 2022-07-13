@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/12 19:22:19 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/13 19:03:10 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@
 # define WIDTH 800
 # define HEIGHT 600
 # define BLACK 0
-# define MOVE 1
+# define WHITE 16777215
+# define RED 16711680
+# define GREEN 65280
+# define BLUE 255
+# define ESC 53
 
 typedef struct s_vplane
 {
@@ -77,7 +81,7 @@ typedef struct s_camera
 typedef struct s_sphere
 {
 	t_vec3			center;
-	int				color;
+	t_vec3			color;
 	float			rad;
 	struct s_sphere	*next;
 }	t_sphere;
@@ -111,6 +115,12 @@ typedef struct s_mlx
 	int				endian;
 }	t_mlx;
 
+typedef struct s_vec2
+{
+	float			dist;
+	t_vec3			color;
+}	t_vec2;
+
 typedef struct s_main
 {
 	t_scene			*scene;
@@ -138,7 +148,7 @@ t_vec3		ft_cross(t_vec3 *a, t_vec3 *b);
 t_vec3		reflect(t_vec3 *rd, t_vec3 *n);
 
 /* sphere */
-t_sphere	*ft_new_sphere(t_vec3 *center, int color, float rad);
+t_sphere	*ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad);
 void		ft_sphere_add_front(t_sphere **lst, t_sphere *new);
 t_sphere	*ft_sphere_last(t_sphere *lst);
 void		ft_sphere_add_back(t_sphere **lst, t_sphere *new);
@@ -160,7 +170,7 @@ void		ft_calibration(t_main *data, t_scene *scene, t_camera *cam);
 
 void		ft_ray_tracing(t_main *data, void *mlx, void *window, t_scene *scene);
 
-int			ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_sphere *sphere);
+// float		ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_sphere *sphere);
 int			ft_pxl_color(t_main *data, t_scene *scene, t_shapes *sh, t_vec3 *ray);
 
 int			ft_buttons(int key, t_main *data);

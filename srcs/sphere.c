@@ -6,13 +6,13 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:11:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/07 19:42:44 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/13 18:56:09 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-t_sphere	*ft_new_sphere(t_vec3 *center, int color, float rad)
+t_sphere	*ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad)
 {
 	t_sphere	*new;
 
@@ -20,7 +20,7 @@ t_sphere	*ft_new_sphere(t_vec3 *center, int color, float rad)
 	if (!new)
 		return (NULL); //обработать
 	new->center = *center;
-	new->color = color;
+	new->color = *color;
 	new->rad = rad;
 	new->next = NULL;
 	return (new);

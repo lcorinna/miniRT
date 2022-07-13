@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 19:20:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/12 19:20:52 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/13 13:28:00 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_clear_arr_struct(t_main *data, int flag)
 
 void	ft_program_completion(t_main *data, char *error, int flag)
 {
-	ft_clear_arr_struct(data, 0);
+	// ft_clear_arr_struct(data, 0);
 	if (flag)
 		perror(error);
 	if (flag > 0)
