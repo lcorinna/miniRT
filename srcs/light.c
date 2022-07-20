@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 13:19:55 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/20 20:31:34 by lcorinna         ###   ########.fr       */
+/*   Created: 2022/07/15 18:13:30 by lcorinna          #+#    #+#             */
+/*   Updated: 2022/07/20 20:25:58 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-t_camera	ft_new_camera(t_vec3 *origin, t_vec3 *direction, float fov)
+t_light	ft_new_light(t_vec3 *position, float bright, t_vec3 *color)
 {
-	t_camera	new;
+	t_light	new;
 
-	new.origin = *origin;
-	new.direction = *direction;
-	new.fov = fov;
+	new.pos = *position;
+	new.bright = bright;
+	new.clr = *color;
 	return (new);
 }

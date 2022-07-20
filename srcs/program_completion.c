@@ -6,29 +6,11 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 19:20:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/13 13:28:00 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/20 20:05:23 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
-
-void	ft_clear_scene(t_scene *scene)
-{
-	// if (scene->amb)
-	// 	free(scene->amb);
-	if (scene->cam)
-		free(scene->cam);
-	// if (scene->lght)
-	// 	free(scene->lght)
-	if (scene->sh.sp)
-		free(scene->sh.sp);
-	// if (scene->sh.cy)
-	// 	free(scene->sh.cy);
-	// if (scene->sh.pl)
-	// 	free(scene->sh.pl);
-	if (scene)
-		free(scene);
-}
 
 void	ft_clear_arr_struct(t_main *data, int flag)
 {
@@ -48,4 +30,10 @@ void	ft_program_completion(t_main *data, char *error, int flag)
 	if (flag > 0)
 		flag = 1;
 	exit (flag);
+}
+
+int	ft_exit(char *str)
+{
+	ft_putstr_fd(str);
+	exit(0);
 }

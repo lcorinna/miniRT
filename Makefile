@@ -6,7 +6,7 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 17:36:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/07/13 19:09:56 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/07/15 18:37:27 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ N_MINIRT	=	miniRT
 
 MINIRT		=	minirt.c program_completion.c\
 				parser.c vec3_one.c vec3_two.c scene.c camera.c sphere.c \
+				light.c \
 				calibration.c \
 				draw.c buttons.c trace_ray.c sphere_interesect.c 
 

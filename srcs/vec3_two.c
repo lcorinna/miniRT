@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:56 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/06 20:03:01 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:41:59 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_vec3	reflect(t_vec3 *rd, t_vec3 *n)
 
 	tmp = ft_s_mul(n, (2 * ft_dot(n, rd)));
 	reflect = ft_sub(rd, &tmp);
-	// reflect = ft_sub(rd, ft_s_mul(n, (2 * ft_dot(n, rd))));
 	return (reflect);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/13 19:03:10 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/20 20:38:07 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,24 @@
 # include <math.h>
 # include <stdio.h>
 
+/* shapes */
+# define SP 1
+# define PL 2
+# define CY 3
+
+/*  window */
 # define WIDTH 800
 # define HEIGHT 600
+
+/* color */
 # define BLACK 0
 # define WHITE 16777215
 # define RED 16711680
 # define GREEN 65280
 # define BLUE 255
-# define ESC 53
 
-typedef struct s_vplane
-{
-	float			width;
-	float			height;
-	float			x_pixel;
-	float			y_pixel;
-}	t_vplane;
+/* buttons */
+# define ESC 53
 
 typedef struct s_vec3
 {
@@ -46,11 +48,11 @@ typedef struct s_vec3
 	float			z;
 }	t_vec3;
 
-// typedef struct s_ambient //добавить когда появится общий свет
-// {
-// 	float			bright;
-// 	int				color;
-// }	t_ambient;
+typedef struct s_ambient
+{
+	float			bright;
+	t_vec3			clr;
+}	t_ambient;
 
 typedef struct s_camera
 {
@@ -59,45 +61,30 @@ typedef struct s_camera
 	float			fov;
 }	t_camera;
 
-// typedef struct s_light //добавить когда появится точечный свет
-// {
-// 	t_vec3			location;
-// 	float			bright;
-// 	int				color;
-// }	t_light:
-
-// typedef struct s_plane //добавить когда появяться фигуры
-// {
-// 	t_vec3			;
-// 	struct s_plane	*next;
-// }	t_plane;
-
-// typedef struct s_cylinder //добавить когда появяться фигуры
-// {
-// 	t_vec3			;
-// 	struct s_cylinder	*next;
-// } 	t_cylinder;
-
-typedef struct s_sphere
+typedef struct s_light
 {
-	t_vec3			center;
-	t_vec3			color;
-	float			rad;
-	struct s_sphere	*next;
-}	t_sphere;
+	t_vec3			pos;
+	float			bright;
+	t_vec3			clr;
+}	t_light;
 
 typedef struct s_shapes
 {
-	t_sphere		*sp;
-	// t_cylinder		*cy; //добавить когда появяться фигуры
-	// t_plane			*pl; //добавить когда появяться фигуры
+	int					type;
+	t_vec3				pos; //sphere plane cylinder
+	t_vec3				clr; //sphere plane cylinder
+	float				rad; //sphere
+	t_vec3				direction; //plane
+	float				diameter; //cylinder
+	float				height; //cylinder
+	struct s_shapes		*next;
 }	t_shapes;
 
 typedef struct s_scene
 {
-	// t_аmbient		*amb; //добавить когда появится общий свет
-	t_camera		*cam;
-	// t_light			*lght; //добавить когда появится точечный свет
+	t_ambient		amb;
+	t_camera		cam;
+	t_light			lght;
 	t_shapes		sh;
 	float			width;
 	float			height;
@@ -115,17 +102,10 @@ typedef struct s_mlx
 	int				endian;
 }	t_mlx;
 
-typedef struct s_vec2
-{
-	float			dist;
-	t_vec3			color;
-}	t_vec2;
-
 typedef struct s_main
 {
 	t_scene			*scene;
 	char			*n_wndw; //поставить в окно запуска программы
-	t_vec3			calib;
 	t_mlx			*mlx;
 	t_vplane		*vplane;
 }	t_main;
@@ -147,21 +127,24 @@ t_vec3		ft_s_mul(t_vec3 *a, float value);
 t_vec3		ft_cross(t_vec3 *a, t_vec3 *b);
 t_vec3		reflect(t_vec3 *rd, t_vec3 *n);
 
-/* sphere */
-t_sphere	*ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad);
-void		ft_sphere_add_front(t_sphere **lst, t_sphere *new);
-t_sphere	*ft_sphere_last(t_sphere *lst);
-void		ft_sphere_add_back(t_sphere **lst, t_sphere *new);
+/* shapes */
+t_shapes	ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad);
+void		ft_shape_add_front(t_shapes **lst, t_shapes *new);
+t_shapes	*ft_shape_last(t_shapes *lst);
+void		ft_shape_add_back(t_shapes **lst, t_shapes *new);
 
 /* draw */
 int			ft_initialization(t_main *data, t_scene *scene);
 int			ft_draw(t_main *data, t_scene *scene);
 
-t_camera	*ft_new_camera(t_vec3 *origin, t_vec3 *direction, float fov);
+/* camera */
+t_camera	ft_new_camera(t_vec3 *origin, t_vec3 *direction, float fov);
+
+/* light */
+t_light		ft_new_light(t_vec3 *position, float bright, t_vec3 *color);
 
 /* scene */
-t_scene		*ft_new_scene(t_camera *cam, t_shapes *sh);
-t_shapes	ft_new_shapes(t_sphere	*sp);
+t_scene		ft_new_scene(t_ambient *ambient, t_camera *cam, t_light *light, t_shapes *sh);
 
 t_vplane	*ft_get_view_plane(float width, float height, float fov);
 
@@ -170,9 +153,10 @@ void		ft_calibration(t_main *data, t_scene *scene, t_camera *cam);
 
 void		ft_ray_tracing(t_main *data, void *mlx, void *window, t_scene *scene);
 
-// float		ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_sphere *sphere);
+t_vec2		ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_sphere *sphere);
 int			ft_pxl_color(t_main *data, t_scene *scene, t_shapes *sh, t_vec3 *ray);
 
+/*  */
 int			ft_buttons(int key, t_main *data);
 int			ft_exit_cross(int key, t_main *data);
 

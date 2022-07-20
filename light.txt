@@ -1,0 +1,43 @@
+
+источник света это vec3 позиция и float сила света (light->intensity) и цвет света color vec3
+можно по ним проходить в цикле
+допустим сейчас 1
+
+1. diffuse_light
+цвет сферы * diffuse_light
+diffuse_light зависит от угла между направлением света и нормалью к точке пересечения
+направлением света это от точки пересечения вычесть vec3 позицию источник света = vec3 dir
+нормалью к точке пересечения на сфере это из центра вычесть точки пересечения и нормализовать
+угол это dot
+
+2. specular_light
+цвет сферы * diffuse_light * specular_light
+цвет сферы * specular_light
+specular_light зависит от угла между направлением нашего луча и направлением отраженного луча
+то есть чем меньше угол тем больше блик
+
+Функция отражения (угол падения равен углу отражения), то есть мы отражаем луч относительно нормали поверхности
+vec3 reflect(vec3 dir, vec3 N)
+  {
+    return dir - N * 2.0 * (dir*N);
+  }
+
+код общий:
+
+diffuse_light_intensity = 0
+specular_light_intensity = 0
+для каждого источника света:
+        vec3 light_dir      = normalize((light->position - hit_point)); // направление света
+        vec3 N = normalize(sphere->center - hit_point)                 // нормаль к точке пересечения
+        float light_angle = dot(light_dir, N); // dot это типа угол между двумя векторами
+        light_angle = max(0.0, light_angle);   // максимальное из двух чисел
+        diffuse_light_intensity  += light->intensity * light_angle;
+
+        ...
+        float angle = dot(dir, reflect(light_dir, N))
+        angle = max(0.0, angle);
+        float blik_power = blik * light->intensity; //blik это насколько сильно бликует материал, например 0.1
+        specular_light_intensity += powf(angle, blik_power) // 0.9 например
+
+return ((sphere->color * diffuse_light_intensity) + 
+         (vec3(255, 255, 255) * specular_light_intensity)) // -> vec3 color

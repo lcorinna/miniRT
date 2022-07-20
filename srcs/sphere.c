@@ -6,30 +6,53 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:11:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/13 18:56:09 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/20 20:44:21 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-t_sphere	*ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad)
+t_shapes	ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad)
 {
-	t_sphere	*new;
+	t_shapes	new;
 
-	new = malloc(sizeof(t_sphere));
-	if (!new)
-		return (NULL); //обработать
-	new->center = *center;
-	new->color = *color;
-	new->rad = rad;
-	new->next = NULL;
+	new = (t_shapes){};
+	new.type = SP;
+	new.pos = *center;
+	new.clr = *color;
+	new.rad = rad;
+	new.next = NULL;
 	return (new);
 }
 
-// нормаль сферы это продолжение радиуса из центра сферы
-// чтобы посчитать нормально нужно из точки вычесть координаты точки сферы
+t_shapes	ft_new_plane(t_vec3 *position, t_vec3 *color, t_vec3 *direction)
+{
+	t_shapes	new;
 
-void	ft_sphere_add_front(t_sphere **lst, t_sphere *new)
+	new = (t_shapes){};
+	new.type = PL;
+	new.pos = *position;
+	new.clr = *color;
+	new.direction = *direction;
+	new.next = NULL;
+	return (new);
+}
+
+t_shapes	ft_new_cylinder(t_vec3 *position, t_vec3 *color, float diameter, float height)
+{
+	t_shapes	new;
+
+	new = (t_shapes){};
+	new.type = CY;
+	new.pos = *position;
+	new.clr = *color;
+	new.diameter = diameter;
+	new.height = height;
+	new.next = NULL;
+	return (new);
+}
+
+void	ft_shape_add_front(t_shapes **lst, t_shapes *new)
 {
 	if (NULL != new)
 	{
@@ -38,7 +61,7 @@ void	ft_sphere_add_front(t_sphere **lst, t_sphere *new)
 	}
 }
 
-t_sphere	*ft_sphere_last(t_sphere *lst)
+t_shapes	*ft_shape_last(t_shapes *lst)
 {
 	if (lst != NULL)
 	{
@@ -50,16 +73,16 @@ t_sphere	*ft_sphere_last(t_sphere *lst)
 	return (lst);
 }
 
-void	ft_sphere_add_back(t_sphere **lst, t_sphere *new)
+void	ft_shape_add_back(t_shapes **lst, t_shapes *new)
 {
-	t_sphere	*lst_last;
+	t_shapes	*lst_last;
 
 	if (new != NULL)
 	{
-		lst_last = ft_sphere_last(*lst);
+		lst_last = ft_shape_last(*lst);
 		if (lst_last == NULL)
 		{
-			ft_sphere_add_front(lst, new);
+			ft_shape_add_front(lst, new);
 		}
 		else
 		{

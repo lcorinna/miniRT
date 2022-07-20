@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:51:29 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/13 19:11:04 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/17 16:31:53 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,33 +50,33 @@ int	ft_get_color(t_vec3 *color)
 	red = (int)roundf(color->x);
 	if (red > 255)
 		red = 255;
-	if (red < 0)
+	else if (red < 0)
 		red = 0;
 	green = (int)roundf(color->y);
 	if (green > 255)
 		green = 255;
-	if (green < 0)
+	else if (green < 0)
 		green = 0;
 	blue = (int)roundf(color->z);
 	if (blue > 255)
 		blue = 255;
-	if (blue < 0)
+	else if (blue < 0)
 		blue = 0;
 	res = (red << 16) | (green << 8) | blue;
 	return (res);
 }
 
-int	ft_pxl_color(t_main *data, t_scene *scene, t_shapes *sh, t_vec3 *ray)
+int	ft_pxl_color(t_main *data, t_scene *scene, t_shapes *sh, t_vec3 *ray) //ищу пересечение вех фигур
 {
 	int			color;
 	t_sphere	*tmp;
 	t_vec2		res;
 	t_vec2		check;
+	t_vec3		light_dir;
 
 	tmp = sh->sp;
-	color = BLACK;
 	check = (t_vec2){};
-	check.dist = 100;
+	check.dist = 2147483647;
 	while (tmp)
 	{
 		res = ft_sphere_intersect(scene->cam, ray, tmp);
@@ -87,6 +87,10 @@ int	ft_pxl_color(t_main *data, t_scene *scene, t_shapes *sh, t_vec3 *ray)
 		}
 		tmp = tmp->next;
 	}
+	// if (check.color.x || check.color.y || check.color.z)
+	// {
+	// 	light_dir = ft_norm(ft_sub(scene->lght->location, ))
+	// }
 	color = ft_get_color(&check.color);
 	return (color);
 }
