@@ -6,17 +6,17 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 17:36:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/07/15 18:37:27 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/07/21 16:52:45 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 N_MINIRT	=	miniRT
 
-MINIRT		=	minirt.c program_completion.c\
+MINIRT		=	minirt.c program_completion.c \
 				parser.c vec3_one.c vec3_two.c scene.c camera.c sphere.c \
 				light.c \
-				calibration.c \
-				draw.c buttons.c trace_ray.c sphere_interesect.c 
+				# calibration.c \
+				# draw.c buttons.c trace_ray.c sphere_interesect.c 
 
 OBJ_MINIRT	=	$(SRC:.c=.o)
 
@@ -41,7 +41,7 @@ libmake:
 	cp $(PATH_LIBFT)$(LIBFT) $(LIBFT)
 	
 $(N_MINIRT):	$(OBJ_MINIRT)
-	cc $(CFLAGS) $(FLAG_MLX) $(OBJ_MINIRT) -o $@
+	cc $(CFLAGS) $(FLAG_MLX) $(LIBFT) $(OBJ_MINIRT) -o $@
 
 %.o:			%.c minirt.h Makefile
 	gcc $(CFLAGS) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:51:29 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/17 16:31:53 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:26:02 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_vec2	ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_sphere *sphere)
 	float	dist_1;
 	float	dist_2;
 	t_vec3	cam_sphere;
-	t_vec2	res;
 
 	cam_sphere = ft_sub(&cam->origin, &sphere->center);
 	b = 2 * (ft_dot(&cam_sphere, ray));

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:40:44 by lcorinna          #+#    #+#             */
-/*   Updated: 2021/11/19 13:40:48 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:29:52 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+void	ft_putstr_fd(char *s, int fd);
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
@@ -40,7 +42,6 @@ void	*ft_memset(void *b, int c, size_t len);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
-void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);

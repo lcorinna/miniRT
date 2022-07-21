@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
+/*   shapes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:11:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/20 20:44:21 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/21 22:13:20 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_shapes	ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad)
 	t_shapes	new;
 
 	new = (t_shapes){};
-	new.type = SP;
+	new.type = SPHERE;
 	new.pos = *center;
 	new.clr = *color;
 	new.rad = rad;
@@ -30,7 +30,7 @@ t_shapes	ft_new_plane(t_vec3 *position, t_vec3 *color, t_vec3 *direction)
 	t_shapes	new;
 
 	new = (t_shapes){};
-	new.type = PL;
+	new.type = PLANE;
 	new.pos = *position;
 	new.clr = *color;
 	new.direction = *direction;
@@ -43,7 +43,7 @@ t_shapes	ft_new_cylinder(t_vec3 *position, t_vec3 *color, float diameter, float 
 	t_shapes	new;
 
 	new = (t_shapes){};
-	new.type = CY;
+	new.type = CYLINDER;
 	new.pos = *position;
 	new.clr = *color;
 	new.diameter = diameter;

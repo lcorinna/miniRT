@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:56 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/15 15:41:59 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/21 19:09:59 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ t_vec3	ft_add(t_vec3 *a, t_vec3 *b)
 	addition.y = a->y + b->y;
 	addition.z = a->z + b->z;
 	return (addition);
+}
+
+t_vec3	ft_add3(t_vec3 *a, t_vec3 *b, t_vec3 *c)
+{
+	t_vec3	addition3;
+
+	addition3.x = a->x + b->x + c->x;
+	addition3.y = a->y + b->y + c->y;
+	addition3.z = a->z + b->z + c->z;
+	return (addition3);
 }
 
 t_vec3	ft_mul(t_vec3 *a, t_vec3 *b)
