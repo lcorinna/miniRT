@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/21 16:27:01 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/22 20:27:18 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_parser(int argc, char **argv, t_main *data)
 
 	sphere_center = ft_new_vec3(50, 50, -50);
 	sphere_color = ft_new_vec3(255, 0, 0);
-	sphere = ft_new_sphere(&sphere_center, &sphere_color, 40 / 2); //делаю сферу
+	sphere = ft_new_sphere(&sphere_center, &sphere_color, 40); //делаю сферу
 
 	data->scene = ft_new_scene(&amb, &cam, &lght, &sphere); //добавляю все в структуру сцена
 	argc = 0; //del

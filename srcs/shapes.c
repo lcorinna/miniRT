@@ -6,13 +6,13 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:11:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/21 22:13:20 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/22 20:28:02 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-t_shapes	ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad)
+t_shapes	ft_new_sphere(t_vec3 *center, t_vec3 *color, float diameter)
 {
 	t_shapes	new;
 
@@ -20,7 +20,8 @@ t_shapes	ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad)
 	new.type = SPHERE;
 	new.pos = *center;
 	new.clr = *color;
-	new.rad = rad;
+	new.diameter = diameter;
+	new.rad = diameter / 2;
 	new.next = NULL;
 	return (new);
 }
@@ -47,6 +48,7 @@ t_shapes	ft_new_cylinder(t_vec3 *position, t_vec3 *color, float diameter, float 
 	new.pos = *position;
 	new.clr = *color;
 	new.diameter = diameter;
+	new.rad = diameter / 2;
 	new.height = height;
 	new.next = NULL;
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/21 22:08:25 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/22 20:42:25 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ t_vec3		ft_add3(t_vec3 *a, t_vec3 *b, t_vec3 *c);
 t_vec3		ft_mul(t_vec3 *a, t_vec3 *b);
 t_vec3		ft_s_mul(t_vec3 *a, float value);
 t_vec3		ft_cross(t_vec3 *a, t_vec3 *b);
+float		ft_dist(t_vec3 *a, t_vec3 *b);
 t_vec3		reflect(t_vec3 *rd, t_vec3 *n);
 
 /* shapes */

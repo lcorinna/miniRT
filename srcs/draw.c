@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:38:49 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/21 22:40:26 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/22 21:07:18 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,40 @@ t_vec3	ft_rotate_dir(t_camera *cam, t_vec3 *dir)
 	return (*dir);
 }
 
-float	ft_find_dist(t_shapes *sh, t_vec *origin, t_vec3 *direction)
+float	ft_plane_interect(t_shapes *plane, t_vec3 *cam_origin, t_vec3 *direction)
+{
+	float	res;
+	float	t;
+	t_vec3	subtraction;
+	float	dot_product_1;
+	float	dot_product_2;
+
+	res = ft_dist(cam_origin, plane->pos);
+	subtraction = ft_sub(cam_origin, plane->pos);
+	dot_product_1 = ft_dot(&subtraction, plane->direction);
+	dot_product_2 = ft_dot(direction, plane->direction);
+	t = -(dot_product_1 / dot_product_2);
+	return (t);
+}
+
+float	ft_cylinder_intersect(t_shapes *cylinder, t_vec3 *cam_origin, t_vec3 *direction)
+{
+	float	res;
+	
+	return (res);
+}
+
+float	ft_find_dist(t_shapes *sh, t_vec3 *cam_origin, t_vec3 *direction)
 {
 	float	distance;
 
 	distance = 0;
 	if (sh->type == SPHERE)
-		distance = ft_sphere_intersect(sh, origin, direction);
+		distance = ft_sphere_intersect(sh, cam_origin, direction);
 	else if (sh->type == PLANE)
-		distance = ft_plane_intersect(sh, origin, direction);
+		distance = ft_plane_intersect(sh, cam_origin, direction);
 	else if (sh->type == CYLINDER)
-		distance = ft_cylinder_intersect(sh, origin, direction);
+		distance = ft_cylinder_intersect(sh, cam_origin, direction);
 	return (distance);
 }
 
@@ -116,7 +139,7 @@ int	ft_intersection(t_main *data, t_shapes *sh, t_vec3 direction)
 	tmp = sh;
 	while (tmp)
 	{
-		dist = ft_find_dist(tmp, data->scene.cam.origin, direction);
+		dist = ft_find_dist(tmp, &data->scene.cam.origin, &direction);
 		if (dist > 0 && dist < dist_min)
 		{
 			dist_min = dist;
@@ -125,7 +148,7 @@ int	ft_intersection(t_main *data, t_shapes *sh, t_vec3 direction)
 		}
 		tmp = tmp->next;
 	}
-	color = clr;
+	color = clr; //
 	return (color);
 }
 

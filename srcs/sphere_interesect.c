@@ -6,36 +6,39 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:51:29 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/21 16:26:02 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/22 20:29:09 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-t_vec2	ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_sphere *sphere)
+// float	ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_shapes *sphere)
+float	ft_sphere_intersect(t_shapes *sphere, t_vec3 *cam_origin, t_vec3 *direction)
 {
 	float	b; //сделать еще одну структуру =D
 	float	c;
 	float	discr;
 	float	dist_1;
 	float	dist_2;
+	float	min;
+	float	max;
+	float	res;
 	t_vec3	cam_sphere;
 
-	cam_sphere = ft_sub(&cam->origin, &sphere->center);
-	b = 2 * (ft_dot(&cam_sphere, ray));
+	cam_sphere = ft_sub(cam_origin, &sphere->pos);
+	b = 2 * (ft_dot(&cam_sphere, direction));
 	c = ft_dot(&cam_sphere, &cam_sphere) - (sphere->rad * sphere->rad);
 	discr = (b * b) - (4 * c);
-	res = (t_vec2){};
 	if (discr < 0)
-		return (res);
+		return (0);
 	dist_1 = ((b * (-1)) - sqrt(discr)) / 2;
 	dist_2 = ((b * (-1)) + sqrt(discr)) / 2;
-	if (dist_1 > 0)
-		res.dist = dist_1;
-	else if (dist_2 > 0)
-		res.dist = dist_2;
-	if (res.dist != 0)
-		res.color = sphere->color;
+	min = fminf(dist_1, dist_2);
+	max = fmaxf(dist_1, dist_2);
+	if (min >= 0)
+		res = min;
+	else
+		res = max;
 	return (res);
 }
 
@@ -69,12 +72,9 @@ int	ft_pxl_color(t_main *data, t_scene *scene, t_shapes *sh, t_vec3 *ray) //ищ
 {
 	int			color;
 	t_sphere	*tmp;
-	t_vec2		res;
-	t_vec2		check;
 	t_vec3		light_dir;
 
 	tmp = sh->sp;
-	check = (t_vec2){};
 	check.dist = 2147483647;
 	while (tmp)
 	{
@@ -86,10 +86,6 @@ int	ft_pxl_color(t_main *data, t_scene *scene, t_shapes *sh, t_vec3 *ray) //ищ
 		}
 		tmp = tmp->next;
 	}
-	// if (check.color.x || check.color.y || check.color.z)
-	// {
-	// 	light_dir = ft_norm(ft_sub(scene->lght->location, ))
-	// }
 	color = ft_get_color(&check.color);
 	return (color);
 }
