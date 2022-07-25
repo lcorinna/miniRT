@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:38:49 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/22 21:07:18 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/25 20:53:35 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,53 @@ float	ft_plane_interect(t_shapes *plane, t_vec3 *cam_origin, t_vec3 *direction)
 	float	dot_product_1;
 	float	dot_product_2;
 
-	res = ft_dist(cam_origin, plane->pos);
-	subtraction = ft_sub(cam_origin, plane->pos);
-	dot_product_1 = ft_dot(&subtraction, plane->direction);
-	dot_product_2 = ft_dot(direction, plane->direction);
+	res = ft_dist(cam_origin, &plane->pos);
+	subtraction = ft_sub(cam_origin, &plane->pos);
+	dot_product_1 = ft_dot(&subtraction, &plane->direction);
+	dot_product_2 = ft_dot(direction, &plane->direction);
 	t = -(dot_product_1 / dot_product_2);
 	return (t);
 }
 
-float	ft_cylinder_intersect(t_shapes *cylinder, t_vec3 *cam_origin, t_vec3 *direction)
+float	ft_calc_t(float ca_co_cp, float cadir, float caca, float res)
 {
-	float	res;
-	
-	return (res);
+	float	t;
+
+	if (res < 0)
+		t = (0 - ca_co_cp) / cadir;
+	else
+		t = (caca - ca_co_cp) / cadir;
+	return (t);
+}
+
+float	ft_cylinder_intersect(t_shapes *cyl, t_vec3 *cam_origin, t_vec3 *direction)
+{
+	float	res; //сделать доп функцию которая вернет результат
+	float	a; //почему такие названия переменных? дискриминант?
+	float	b; ////сделать еще одну структуру =D //см. пересечение со сферой
+	float	c;
+	t_vec3	ca;
+	t_vec3	tmp;
+
+	tmp = ft_s_mul(&cyl->direction, cyl->height);
+	tmp = ft_add(&cyl->pos, &tmp);
+	ca = ft_sub(&tmp, &cyl->pos);
+	a = ft_dot(&ca, &ca) - ft_dot(&ca, direction) * ft_dot(&ca, direction);
+	tmp = ft_sub(cam_origin, &cyl->pos);
+	b = ft_dot(&ca, &ca) * ft_dot(&tmp, direction) - ft_dot(&ca, &tmp) * ft_dot(&ca, direction);
+	tmp = ft_sub(cam_origin, &cyl->pos);
+	c = ft_dot(&ca, &ca) * ft_dot(&tmp, &tmp) - ft_dot(&ca, &tmp) * ft_dot(&ca, &tmp) - cyl->rad * cyl->rad * ft_dot(&ca, &ca);
+	if ((b * b - a * c) < 0)
+		return (0);
+	tmp = ft_sub(cam_origin, &cyl->pos);
+	res = ft_dot(&ca, &tmp) + ((-b - sqrt((b * b - a * c))) / a) * ft_dot(&ca, direction);
+	if (res > 0 && res < ft_dot(&ca, &ca))
+		return (((-b - sqrt((b * b - a * c))) / a));
+	tmp = ft_sub(cam_origin, &cyl->pos);
+	res = ft_calc_t(ft_dot(&ca, &tmp), ft_dot(&ca, direction), ft_dot(&ca, &ca), res);
+	if (fabs(b + a * res) < sqrt((b * b - a * c)))
+		return (res);
+	return (0);
 }
 
 float	ft_find_dist(t_shapes *sh, t_vec3 *cam_origin, t_vec3 *direction)
@@ -125,6 +159,13 @@ float	ft_find_dist(t_shapes *sh, t_vec3 *cam_origin, t_vec3 *direction)
 		distance = ft_cylinder_intersect(sh, cam_origin, direction);
 	return (distance);
 }
+
+int	ft_lighting(t_main *data, t_shapes *tmp, t_vec3 *direction, float dist)
+{
+	
+	return (0); //clr
+}
+
 
 int	ft_intersection(t_main *data, t_shapes *sh, t_vec3 direction)
 {
@@ -143,12 +184,12 @@ int	ft_intersection(t_main *data, t_shapes *sh, t_vec3 direction)
 		if (dist > 0 && dist < dist_min)
 		{
 			dist_min = dist;
-			clr = tmp->clr;
-			// clr = ??
+			// clr = tmp->clr; //это нужно тестировать
+			color = ft_lighting(data, tmp, &direction, dist);
 		}
 		tmp = tmp->next;
 	}
-	color = clr; //
+	// color = ft_get_color(&clr); //это нужно тестировать
 	return (color);
 }
 
@@ -170,7 +211,7 @@ void	ft_draw_loop(t_main *data, t_scene *scene, t_mlx *mlx)
 		{
 			direction = ft_find_dir(dst, x, y, ft_norm(&scene->cam.direction));
 			direction = ft_rotate_dir(&scene->cam, &direction);
-			clr = ft_intersection(data, data->scene.sh, direction);
+			clr = ft_intersection(data, &data->scene.sh, direction);
 			ft_mlx_pixel_put(&data->mlx, x, y, clr);
 		}
 	}

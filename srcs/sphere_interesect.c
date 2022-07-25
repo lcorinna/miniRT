@@ -6,16 +6,15 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:51:29 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/22 20:29:09 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/25 20:52:24 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-// float	ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_shapes *sphere)
 float	ft_sphere_intersect(t_shapes *sphere, t_vec3 *cam_origin, t_vec3 *direction)
 {
-	float	b; //сделать еще одну структуру =D
+	float	b; //сделать еще одну структуру =D //см. пересечение цилиндра
 	float	c;
 	float	discr;
 	float	dist_1;
@@ -66,26 +65,4 @@ int	ft_get_color(t_vec3 *color)
 		blue = 0;
 	res = (red << 16) | (green << 8) | blue;
 	return (res);
-}
-
-int	ft_pxl_color(t_main *data, t_scene *scene, t_shapes *sh, t_vec3 *ray) //ищу пересечение вех фигур
-{
-	int			color;
-	t_sphere	*tmp;
-	t_vec3		light_dir;
-
-	tmp = sh->sp;
-	check.dist = 2147483647;
-	while (tmp)
-	{
-		res = ft_sphere_intersect(scene->cam, ray, tmp);
-		if (res.dist != 0 && res.dist < check.dist)
-		{
-			check.dist = res.dist;
-			check.color = res.color;
-		}
-		tmp = tmp->next;
-	}
-	color = ft_get_color(&check.color);
-	return (color);
 }
