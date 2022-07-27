@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:56 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/21 16:16:11 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:56:13 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vec3	ft_sub(t_vec3 *a, t_vec3 *b)
 	return (subtraction);
 }
 
-float	ft_length(t_vec3 *a)
+float	ft_length(t_vec3 a)
 {
 	float	length;
 
@@ -45,7 +45,7 @@ t_vec3	ft_norm(t_vec3 *a)
 	t_vec3	new;
 	float	length;
 
-	length = ft_length(a);
+	length = ft_length(*a);
 	new.x = a->x / length;
 	new.y = a->y / length;
 	new.z = a->z / length;

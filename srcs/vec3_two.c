@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:56 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/22 20:42:12 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:21:34 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ t_vec3	ft_cross(t_vec3 *a, t_vec3 *b)
 	return (cross_product);
 }
 
-float	ft_dist(t_vec3 *a, t_vec3 *b)
+float	ft_dist(t_vec3 a, t_vec3 b)
 {
 	float	distance;
 	t_vec3	subtraction;
 
 	subtraction = ft_sub(b, a);
-	distance = ft_length(&subtraction);
+	distance = ft_length(subtraction);
 	return (distance);
 }
 

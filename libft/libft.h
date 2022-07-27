@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:40:44 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/21 16:29:52 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/27 21:40:57 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+
+# ifndef  BUFFER_SIZE
+#  define  BUFFER_SIZE 42
+# endif
 
 typedef struct s_list
 {
@@ -23,6 +29,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+/* libft */
 void	ft_putstr_fd(char *s, int fd);
 
 int		ft_atoi(const char *str);
@@ -68,4 +75,15 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
+/*get next line*/
+size_t	ft_strlen_gnl(char *r);
+char	*ft_strchr_gnl(char *s, int c);
+char	*ft_substr_gnl(char *s, unsigned int start, size_t len);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*ft_trim_for_str(char *res);
+char	*ft_trim_for_res(char *res);
+char	*ft_read(int fd, char *res, int *chit, int i);
+char	*get_next_line(int fd);
+char	*ft_res_res(char *res, int i);
+char	*ft_free_res(char *res, int *chit);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/22 20:42:25 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/27 21:39:45 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,9 @@
 # define MINIRT_H
 
 # include "libft/libft.h"
+# include "mlx/mlx.h"
 
-# include <mlx.h>
 # include <fcntl.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
 
@@ -119,7 +115,7 @@ int			ft_parser(int argc, char **argv, t_main *data);
 /* vec3_one */
 t_vec3		ft_new_vec3(float x, float y, float z);
 t_vec3		ft_sub(t_vec3 *a, t_vec3 *b);
-float		ft_length(t_vec3 *a);
+float		ft_length(t_vec3 a);
 t_vec3		ft_norm(t_vec3 *a);
 float		ft_dot(t_vec3 *a, t_vec3 *b);
 
@@ -129,7 +125,7 @@ t_vec3		ft_add3(t_vec3 *a, t_vec3 *b, t_vec3 *c);
 t_vec3		ft_mul(t_vec3 *a, t_vec3 *b);
 t_vec3		ft_s_mul(t_vec3 *a, float value);
 t_vec3		ft_cross(t_vec3 *a, t_vec3 *b);
-float		ft_dist(t_vec3 *a, t_vec3 *b);
+float		ft_dist(t_vec3 a, t_vec3 b);
 t_vec3		reflect(t_vec3 *rd, t_vec3 *n);
 
 /* shapes */

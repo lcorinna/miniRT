@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:38:49 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/25 20:53:35 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:28:29 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_mlx	ft_new_mlx(t_main *data)
 	new.mlx = mlx_init();
 	if (!new.mlx)
 		ft_exit("mlx_init error\n", 2);
-	new.win = mlx_new_window(new.mlx, WIDTH, HEIGHT, "miniRT"); //change
+	new.win = mlx_new_window(new.mlx, WIDTH, HEIGHT, "miniRT"); //change n_win
 	if (!new.win)
 		ft_exit("mlx_new_window error\n", 2);
 	return (new);
@@ -97,7 +97,7 @@ float	ft_plane_interect(t_shapes *plane, t_vec3 *cam_origin, t_vec3 *direction)
 	float	dot_product_1;
 	float	dot_product_2;
 
-	res = ft_dist(cam_origin, &plane->pos);
+	res = ft_dist(*cam_origin, plane->pos);
 	subtraction = ft_sub(cam_origin, &plane->pos);
 	dot_product_1 = ft_dot(&subtraction, &plane->direction);
 	dot_product_2 = ft_dot(direction, &plane->direction);
@@ -160,12 +160,86 @@ float	ft_find_dist(t_shapes *sh, t_vec3 *cam_origin, t_vec3 *direction)
 	return (distance);
 }
 
-int	ft_lighting(t_main *data, t_shapes *tmp, t_vec3 *direction, float dist)
+t_vec3	ft_cylinder_norm(t_shapes *cyl, t_vec3 *inter_point)
 {
-	
-	return (0); //clr
+	t_vec3	norm;
+	t_vec3	top_center;
+	t_vec3	pt;
+	t_vec3	tmp;
+	float	t;
+
+	tmp = ft_s_mul(cyl->direction, cyl->height);
+	top_center = ft_add(cyl->pos, &tmp);
+	if (ft_length(ft_sub(inter_point, cyl->pos)) < cyl->rad)
+		norm = ft_s_mul(cyl->pos. -1);
+	else if (ft_length(ft_sub(inter_point, top_center)) < cyl->rad)
+		norm = cyl->direction;
+	else
+	{
+		tmp = ft_sub(inter, cyl->pos);
+		t = ft_dot(&tmp, cyl->direction);
+		tmp = ft_s_mul(cyl->norm, t);
+		pt = ft_add(cyl->pos, &tmp);
+		tmp = ft_sub(inter_point, &pt);
+		norm = ft_norm(&tmp);
+	}
+	return (norm);
 }
 
+float	ft_drop_shadow(t_main *data, t_shapes *shape, t_vec3 *inter_point)
+{
+	t_vec3		dir;
+	t_vec3		vec_tmp;
+	t_shapes	*tmp;
+	float		dist;
+
+	vec_tmp = ft_sub(data->scene.lght.pos, inter_point);
+	dir	= ft_norm(vec_tmp);
+	tmp = data->scene.sh;
+	while (tmp)
+	{
+		dist = ft_find_dist(tmp, inter_point, dir);
+		if (tmp->type != shape->type)
+		{
+			if (dist > 0 && dist < ft_dist(*inter_point, data->scene.lght.pos) \
+							&& tmp->pos != tmp->pos && tmp->clr != shape->clr) //возможно нужно больше условий
+				return (1);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+int	ft_lighting(t_main *data, t_shapes *shape, t_vec3 *direction, float dist)
+{
+	t_vec3	inter_point;
+	t_vec3	nrmlz;
+	t_vec3	tmp;
+	float	drop;
+	int		clr;
+
+	tmp = ft_s_mul(direction, dist);
+	inter_point = ft_add(data->scene.cam.origin, tmp);
+	if (shape->type == SPHERE)
+	{
+		tmp = ft_add(inter_point, shape->pos);
+		nrmlz = ft_norm(&tmp);
+	}
+	else if (shape->type == PLANE)
+		nrmlz = ft_norm(shape->direction);
+	else if (shape->type == CYLINDER)
+		nrmlz = ft_cylinder_norm(shape, &inter_point);
+	drop = ft_drop_shadow(data, shape, &inter_point);
+	if (drop == 0)
+	{
+		
+	}
+	else if (drop == 1)
+	{
+		
+	}
+	return (clr);
+}
 
 int	ft_intersection(t_main *data, t_shapes *sh, t_vec3 direction)
 {
