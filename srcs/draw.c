@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:38:49 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/27 18:28:29 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/29 15:01:10 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_mlx	ft_new_mlx(t_main *data)
 	new.mlx = mlx_init();
 	if (!new.mlx)
 		ft_exit("mlx_init error\n", 2);
-	new.win = mlx_new_window(new.mlx, WIDTH, HEIGHT, "miniRT"); //change n_win
+	new.win = mlx_new_window(new.mlx, WIDTH, HEIGHT, data->n_wndw);
 	if (!new.win)
 		ft_exit("mlx_new_window error\n", 2);
 	return (new);

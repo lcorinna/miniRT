@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/27 21:39:45 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/29 15:02:19 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,10 @@ typedef struct s_mlx
 
 typedef struct s_main
 {
+	int				fd;
+	char			*n_wndw;
+	char			**maps;
 	t_scene			scene;
-	char			*n_wndw; //поставить в окно запуска программы
 	t_mlx			mlx;
 }	t_main;
 

@@ -6,13 +6,13 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 21:27:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/07/27 21:41:36 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/07/29 14:19:26 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	libft.a
 
-LIST_1	=	ft_putstr_fd.c \
+LIST_1	=	ft_putstr_fd.c ft_strncmp.c\
 			get_next_line_utils.c get_next_line.c
 
 # LIST_1 = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c \
@@ -32,7 +32,7 @@ $(NAME):	$(O_FILES)
 	ar rcs $(NAME) $?
 
 %.o:		%.c libft.h Makefile
-	gcc -Wall -Wextra -Werror -c $< -o $@
+	cc -Wall -Wextra -Werror -c $< -o $@
 
 clean:
 	rm -rf $(O_FILES)

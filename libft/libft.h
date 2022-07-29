@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:40:44 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/27 21:40:57 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/29 14:19:35 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_list
 
 /* libft */
 void	ft_putstr_fd(char *s, int fd);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
@@ -58,7 +59,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *r);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strtrim(char const *s1, char const *set);

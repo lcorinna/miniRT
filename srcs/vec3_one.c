@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:56 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/27 17:56:13 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/29 13:59:50 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ float	ft_length(t_vec3 a)
 {
 	float	length;
 
-	length = sqrt((a->x * a->x) + (a->y * a->y) + (a->z * a->z));
+	length = sqrt((a.x * a.x) + (a.y * a.y) + (a.z * a.z));
 	return (length);
 }
 

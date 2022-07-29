@@ -6,7 +6,7 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 17:36:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/07/27 21:49:17 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/07/29 14:12:44 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ MINIRT		=	minirt.c program_completion.c \
 
 OBJ_MINIRT	=	$(SRC:.c=.o)
 
-FLAG_MLX	=	-lmlx -framework OpenGL -framework AppKit
+FLAG_MLX	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 
 CFLAGC		=	-Wall -Wextra -Werror -MMD -g -fsanitize=address -O3 -msse4 -march=native # Leaks --atExit -- ./miniRT
 
@@ -31,14 +31,12 @@ SRC			=	$(addprefix $(SRC_PATH), $(MINIRT))
 DEP			=	$(SRC:.c=.d)
 
 PATH_LIBFT	=	./libft/
-
 LIBFT		=	libft.a
 
 PATH_MLX	=	./mlx/
-
 MLX			=	libmlx.a
 
-all:			libmake mlxmake $(N_MINIRT)
+all:			mlxmake libmake $(N_MINIRT)
 
 libmake: 
 	make -C $(PATH_LIBFT)
@@ -46,13 +44,13 @@ libmake:
 
 mlxmake:
 	make -C $(PATH_MLX)
-	cp $(PATH_MLX)$(MLX)
+	cp $(PATH_MLX)$(MLX) $(MLX)
 	
 $(N_MINIRT):	$(OBJ_MINIRT)
 	cc $(CFLAGS) $(FLAG_MLX) $(LIBFT) $(MLX) $(OBJ_MINIRT) -o $@
 
 %.o:			%.c minirt.h Makefile
-	gcc $(CFLAGS) -c $< -o $@
+	cc $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(OBJ_MINIRT) $(DEP) $(LIBFT) $(MLX)
@@ -62,7 +60,7 @@ clean:
 fclean:			clean
 	rm -rf $(N_MINIRT)
 	make fclean -C $(PATH_LIBFT)
-	make fclean -C $(PATH_MLX)
+	make clean -C $(PATH_MLX)
 
 re:				fclean all
 
