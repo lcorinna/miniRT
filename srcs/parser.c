@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/29 16:08:36 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/31 19:08:41 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,40 +79,89 @@ void	ft_read_file(t_main *data, char *f_name)
 	ft_writing_array(data, count, f_name);
 }
 
+int	ft_skip_visible_char(char *str, int i)
+{
+	while (str[i] != '\0' && (str[i] >= '0' && str[i] <= '9') || \
+		(str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
+	// {
+		// printf("visible = str[%d] - %c\n", i , str[i]); //del
+		// sleep(1);
+		i++;
+	// }
+	return (i);
+}
+
+int	ft_skip_invisible_char(char *str, int i)
+{
+	while (str[i] != '\0' && (str[i] == 32) || (str[i] > 8 && str[i] < 14))
+	// {
+	// 	printf("invisible = str[%d] - %c\n", i , str[i]); //del
+		// sleep(1);
+		i++;
+	// }
+	return (i);
+}
+
+void	ft_ambiant(t_main *data, char *type, char *str)
+{
+	int	i;
+
+	i = 0;
+	printf("AMBIANT\n"); //del
+	i = ft_skip_invisible_char(str, i); //если есть пробел до знач, то пропускаю
+	i = ft_skip_visible_char(str, i); //пропускаю тип
+	i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
+	printf("str - %s\n", str + i);
+	printf("i - %d\n", i); //del
+}
+
 void	ft_type_selection(t_main *data, char *type, char *str)
 {
+	// printf("type - %s\n", type); //del
+	// printf("str - %s\n", str); //del
+	// printf("long	1 - %zu	2 - %zu\n", ft_strlen(type), ft_strlen("A\0")); //del
+	// printf("strcmp - %d\n", ft_strncmp("A\0", type, 2)); //del
 	if (type[0] == '\0')
 		return ;
-	else if (ft_strncmp(type, "A", 1) == 0)
-		printf("AMBIANT\n"); //del
-	else if (ft_strncmp(type, "C", 1) == 0)
-		printf("CAMERA\n"); //del
-	else if (ft_strncmp(type, "L", 1) == 0)
-		printf("LIGHT\n"); //del
-	else if (ft_strncmp(type, "pl", 3) == 0)
-		printf("PLANE\n"); //del
-	else if (ft_strncmp(type, "sp", 3) == 0)
-		printf("SPHERE\n"); //del
-	else if (ft_strncmp(type, "cy", 3) == 0)
-		printf("CYLINDER\n"); //del
+	else if (ft_strncmp("A", type, 2) == 0)
+		ft_ambiant(data, type, str);
+	// else if (ft_strncmp("C", type, 1) == 0)
+	// 	printf("CAMERA\n"); //del
+	// else if (ft_strncmp("L", type, 1) == 0)
+	// 	printf("LIGHT\n"); //del
+	// else if (ft_strncmp("pl", type, 3) == 0)
+	// 	printf("PLANE\n"); //del
+	// else if (ft_strncmp("sp", type, 3) == 0)
+	// 	printf("SPHERE\n"); //del
+	// else if (ft_strncmp("cy", type, 3) == 0)
+	// 	printf("CYLINDER\n"); //del
 	else
 	{
 		ft_putstr_fd(type, 2);
 		ft_putstr_fd(": has an unidentified type\n", 2);
 	}
+	sleep(10); //del
 }
 
 void	ft_which_element(t_main *data, char *str)
 {
 	int		i;
 	int		j;
-	char	type[3];
+	int		size;
+	char	*type;
 
 	i = 0;
-	while (str[i] != '\0' && (str[i] == 32) || (str[i] > 8 && str[i] < 14))
-		i++;
 	j = 0;
-	while (str[i] != '\0' && j != 2)
+	size = 0;
+	i = ft_skip_invisible_char(str, i); //если есть пробел до знач, то пропускаю
+	size = ft_skip_visible_char(str, i); //считаю тип
+	printf("\n\n"); //del
+	// printf("str - %s\n", str); //del
+	printf("size - %d\n", size); //del
+	type = malloc(sizeof(char) * (size + 1));
+	if (!type)
+		ft_exit("Memory was not allocated\n", 1);
+	while (str[i] != '\0' && j != size)
 	{
 		type[j] = '\0';
 		type[j] = str[i];
@@ -121,6 +170,7 @@ void	ft_which_element(t_main *data, char *str)
 	}
 	type[j] = '\0';
 	ft_type_selection(data, type, str);
+	free(type);
 }
 
 void	ft_writing_scene(t_main *data)

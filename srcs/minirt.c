@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/29 13:22:31 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/07/31 18:14:30 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	main(int argc, char **argv)
 	t_main	data;
 
 	data = (t_main){};
-	// if (argc != 2)
-	// 	ft_exit("Check the number of arguments\n", 1);
+	if (argc != 2)
+		ft_exit("Check the number of arguments\n", 1);
 	ft_parser(argc, argv, &data);
 	printf("%f\n", data.scene.amb.clr.x); //del
 	printf("%f\n", data.scene.sh.pos.x); //del
