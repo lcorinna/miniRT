@@ -6,127 +6,22 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/31 19:08:41 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/01 21:42:00 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
-
-void	ft_check_file(t_main *data, char *f_name)
-{
-	int		i;
-
-	i = 0;
-	while (f_name[i] != '\0')
-	{
-		if (f_name[i] == '.')
-			if (ft_strncmp(f_name + i, ".rt", 4))
-				ft_exit("The file must have the extension \".rt\"\n", 1);
-		i++;
-	}
-	data->fd = open(f_name, O_RDONLY);
-	if (data->fd == -1)
-		ft_exit("Mistake \"open\"", 2);
-	data->n_wndw = f_name;
-}
-
-int	ft_count_lines(t_main *data)
-{
-	int		i;
-	char	*str;
-
-	i = 0;
-	while (1)
-	{
-		str = get_next_line(data->fd);
-		if (str == NULL)
-			break ;
-		free(str);
-		++i;
-	}
-	if (i == 0)
-		ft_exit("Empty file\n", 1);
-	return (i);
-}
-
-void	ft_writing_array(t_main *data, int count, char *f_name)
-{
-	int		i;
-
-	i = 0;
-	data->maps = malloc(sizeof(char *) * (count + 1));
-	if (!data->maps)
-		ft_exit("Memory was not allocated\n", 1);
-	close(data->fd);
-	data->fd = open(f_name, O_RDONLY);
-	while (count != 0)
-	{
-		data->maps[i] = get_next_line(data->fd);
-		// printf("data->maps[%d] - %s\n", i, data->maps[i]); //del
-		if (data->maps[i] == NULL)
-			ft_exit("Memory was not allocated\n", 1);
-		i++;
-		count--;
-	}
-	data->maps[i] = NULL;
-}
-
-void	ft_read_file(t_main *data, char *f_name)
-{
-	int		count;
-
-	count = ft_count_lines(data);
-	ft_writing_array(data, count, f_name);
-}
-
-int	ft_skip_visible_char(char *str, int i)
-{
-	while (str[i] != '\0' && (str[i] >= '0' && str[i] <= '9') || \
-		(str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
-	// {
-		// printf("visible = str[%d] - %c\n", i , str[i]); //del
-		// sleep(1);
-		i++;
-	// }
-	return (i);
-}
-
-int	ft_skip_invisible_char(char *str, int i)
-{
-	while (str[i] != '\0' && (str[i] == 32) || (str[i] > 8 && str[i] < 14))
-	// {
-	// 	printf("invisible = str[%d] - %c\n", i , str[i]); //del
-		// sleep(1);
-		i++;
-	// }
-	return (i);
-}
-
-void	ft_ambiant(t_main *data, char *type, char *str)
-{
-	int	i;
-
-	i = 0;
-	printf("AMBIANT\n"); //del
-	i = ft_skip_invisible_char(str, i); //если есть пробел до знач, то пропускаю
-	i = ft_skip_visible_char(str, i); //пропускаю тип
-	i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
-	printf("str - %s\n", str + i);
-	printf("i - %d\n", i); //del
-}
+#include "../../minirt.h"
 
 void	ft_type_selection(t_main *data, char *type, char *str)
 {
 	// printf("type - %s\n", type); //del
 	// printf("str - %s\n", str); //del
-	// printf("long	1 - %zu	2 - %zu\n", ft_strlen(type), ft_strlen("A\0")); //del
-	// printf("strcmp - %d\n", ft_strncmp("A\0", type, 2)); //del
 	if (type[0] == '\0')
 		return ;
 	else if (ft_strncmp("A", type, 2) == 0)
 		ft_ambiant(data, type, str);
-	// else if (ft_strncmp("C", type, 1) == 0)
-	// 	printf("CAMERA\n"); //del
+	else if (ft_strncmp("C", type, 1) == 0)
+		ft_camera(data, type, str);
 	// else if (ft_strncmp("L", type, 1) == 0)
 	// 	printf("LIGHT\n"); //del
 	// else if (ft_strncmp("pl", type, 3) == 0)
@@ -139,8 +34,8 @@ void	ft_type_selection(t_main *data, char *type, char *str)
 	{
 		ft_putstr_fd(type, 2);
 		ft_putstr_fd(": has an unidentified type\n", 2);
+		sleep(10); //del
 	}
-	sleep(10); //del
 }
 
 void	ft_which_element(t_main *data, char *str)

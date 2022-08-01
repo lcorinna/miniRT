@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 15:11:23 by lcorinna          #+#    #+#             */
-/*   Updated: 2021/11/13 19:17:16 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/01 17:17:22 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_atoi(const char *str)
 
 	res = 0;
 	i = 0;
+	// printf("atoi str - %s\n", str); //del
 	while ((str[i] == 32) || (str[i] > 8 && str[i] < 14))
 		i++;
 	if (str[i] == 45)

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:40:44 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/31 18:46:27 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/01 20:54:27 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ typedef struct s_list
 void	ft_putstr_fd(char *s, int fd);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *r);
-
 int		ft_atoi(const char *str);
+int		ft_isdigit(int p);
+
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 int		ft_isalnum(int q);
+int		ft_isprint(int q);
 int		ft_isalpha(int c);
 int		ft_isascii(int q);
-int		ft_isdigit(int p);
-int		ft_isprint(int q);
 char	*ft_itoa(int n);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);

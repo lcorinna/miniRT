@@ -6,17 +6,19 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 17:36:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/07/29 14:12:44 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/08/01 21:46:51 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 N_MINIRT	=	miniRT
 
 MINIRT		=	minirt.c program_completion.c \
-				parser.c vec3_one.c vec3_two.c scene.c camera.c shapes.c \
-				light.c \
-				# calibration.c \
-				# draw.c buttons.c trace_ray.c sphere_interesect.c 
+				parser/parser.c parser/parser_utils.c parser/parser_support.c \
+				parser/skip_char.c parser/ambiant.c parser/camera.c\
+				vec3_one.c vec3_two.c scene.c shapes.c \
+				light.c
+				# calibration.c 
+				# draw.c buttons.c trace_ray.c sphere_interesect.c
 
 OBJ_MINIRT	=	$(SRC:.c=.o)
 

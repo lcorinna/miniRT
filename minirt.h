@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/29 15:02:19 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/01 21:44:47 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,34 @@ typedef struct s_main
 
 /* parser */
 int			ft_parser(int argc, char **argv, t_main *data);
+void		ft_clean_maps(t_main *data);
+void		ft_writing_scene(t_main *data);
+void		ft_which_element(t_main *data, char *str);
+void		ft_type_selection(t_main *data, char *type, char *str);
+
+/* parser_utils */
+void		ft_check_file(t_main *data, char *f_name);
+void		ft_read_file(t_main *data, char *f_name);
+int			ft_count_lines(t_main *data);
+void		ft_writing_array(t_main *data, int count, char *f_name);
+
+/* parser_support */
+void		ft_data_entry_error(char *str);
+t_vec3		ft_pars_clr(t_main *data, char *str, t_vec3	clr);
+t_vec3		ft_point_in_space(t_main *data, char *str);
+
+
+/* skip_char */
+int			ft_skip_invisible_char(char *str, int i);
+int			ft_skip_visible_char(char *str, int i);
+int			ft_skip_visible_char_munis(char *str, int i);
+int			ft_skip_type(char *str, int i);
+
+/* ambiant */
+void		ft_ambiant(t_main *data, char *type, char *str);
+
+/* camera */
+void		ft_camera(t_main *data, char *type, char *str);
 
 /* vec3_one */
 t_vec3		ft_new_vec3(float x, float y, float z);
@@ -130,6 +158,13 @@ t_vec3		ft_cross(t_vec3 *a, t_vec3 *b);
 float		ft_dist(t_vec3 a, t_vec3 b);
 t_vec3		reflect(t_vec3 *rd, t_vec3 *n);
 
+
+/* light */
+t_light		ft_new_light(t_vec3 *position, float bright, t_vec3 *color);
+
+/* scene */
+t_scene		ft_new_scene(t_ambient *ambient, t_camera *cam, t_light *light, t_shapes *sh);
+
 /* shapes */
 t_shapes	ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad);
 void		ft_shape_add_front(t_shapes **lst, t_shapes *new);
@@ -139,16 +174,6 @@ void		ft_shape_add_back(t_shapes **lst, t_shapes *new);
 /* draw */
 int			ft_initialization(t_main *data);
 void		ft_draw_loop(t_main *data, t_scene *scene, t_mlx *mlx);
-
-/* camera */
-t_camera	ft_new_camera(t_vec3 *origin, t_vec3 *direction, float fov);
-
-/* light */
-t_ambient	ft_new_amb(float bright, t_vec3 *clr);
-t_light		ft_new_light(t_vec3 *position, float bright, t_vec3 *color);
-
-/* scene */
-t_scene		ft_new_scene(t_ambient *ambient, t_camera *cam, t_light *light, t_shapes *sh);
 
 /* calibration */
 void		ft_calibration(t_main *data, t_scene *scene, t_camera *cam);
