@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:19:55 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/01 21:45:14 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/02 20:50:12 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,14 @@ void	ft_camera(t_main *data, char *type, char *str)
 	i = 0;
 	i = ft_skip_type(str, i); //пропускаю тип
 	origin = ft_point_in_space(data, str + i);
+	// printf("camera x - %f y - %f z - %f\n", origin.x, origin.y, origin.z); //del
 	i = ft_skip_visible_char_munis(str, i); //пропускаю тип
 	i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
 	direction = ft_point_in_space(data, str + i);
 	i = ft_skip_visible_char_munis(str, i); //пропускаю тип
 	i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
 	fov = ft_fov_cam(str + i);
-	if (origin.x == MAXFLOAT || fov == MAXFLOAT || \
-		direction.x < -1 || direction.x > 1 || \
-		direction.y < -1 || direction.y > 1 || \
-		direction.z < -1 || direction.z > 1)
+	if (origin.x == MAXFLOAT || fov == MAXFLOAT || ft_chec_direction(direction))
 	{
 		ft_data_entry_error(str);
 		return ;

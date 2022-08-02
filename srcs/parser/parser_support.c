@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:06:55 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/01 21:44:01 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/02 20:40:37 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ float	ft_pars_one_clr(char *str, int	*i)
 	while (str[*i] != '\0' && str[*i] != '\n' && str[*i] != ',' && \
 		str[*i] != 32 && (str[*i] < 8 || str[*i] > 14))
 	{
-		// printf("alan - %c\n", str[*i]); //del
 		if (!ft_isdigit(str[*i]))
 			return (MAXFLOAT);
 		color[j] = '\0';
@@ -35,7 +34,7 @@ float	ft_pars_one_clr(char *str, int	*i)
 	(*i)++;
 	color[j] = '\0';
 	part = (float)ft_atoi(color);
-	// printf("part - %f\n", part); //del
+	part = roundf(part);
 	return (part);
 }
 
@@ -62,24 +61,21 @@ t_vec3	ft_pars_clr(t_main *data, char *str, t_vec3	clr)
 	return (clr);
 }
 
-float	ft_pre_assembly(char *str, int *i)
+float	ft_pre_assembly(char *str, int *i, float *res)
 {
-	float	res;
 	char	number[4];
 	int		j;
 
-	res = 1;
 	j = 0;
-	// printf("pre begin - %s\n", str + *i); //del
 	if (str[*i] == '-')
 	{
-		res = -1;
+		*res = -1;
 		(*i)++;
 	}
 	if (!ft_isdigit(str[*i]))
 		return (MAXFLOAT);
 	while (str[*i] != '\0' && str[*i] != '\n' && str[*i] != ',' && \
-		str[*i] != 32 && (str[*i] >= '0' && str[*i] <= '9'))
+		str[*i] != 32 && (str[*i] < 8 || str[*i] > 14))
 	{
 		if (!ft_isdigit(str[*i]))
 			return (MAXFLOAT);
@@ -91,8 +87,9 @@ float	ft_pre_assembly(char *str, int *i)
 	if (str[*i] == ',')
 		(*i)++;
 	number[j] = '\0';
-	res *= (float)ft_atoi(number);
-	return (res);
+	*res *= (float)ft_atoi(number);
+	*res = roundf(*res);
+	return (*res);
 }
 
 t_vec3	ft_point_in_space(t_main *data, char *str)
@@ -104,13 +101,22 @@ t_vec3	ft_point_in_space(t_main *data, char *str)
 	int		i;
 
 	i = 0;
-	x = ft_pre_assembly(str, &i);
-	// printf("x - %f\n", x); //del
-	y = ft_pre_assembly(str, &i);
-	// printf("y - %f\n", y); //del
-	z = ft_pre_assembly(str, &i);
+	x = 1;
+	y = 1;
+	z = 1;
+	// printf("point_in_space - %s", str); //del
+	x = ft_pre_assembly(str, &i, &x);
+	// printf("point x - %f\n", origin.x);//del
+	y = ft_pre_assembly(str, &i, &y);
+	// printf("point y - %f\n", origin.y);//del
+	z = ft_pre_assembly(str, &i, &z);
+	// printf("point z - %f\n\n", origin.z);//del
+	if (x == MAXFLOAT || y == MAXFLOAT || z == MAXFLOAT)
+	{
+		origin = ft_new_vec3(MAXFLOAT, MAXFLOAT, MAXFLOAT);
+		return (origin);
+	}
 	origin = ft_new_vec3(x, y, z);
-	// printf("z - %f\n", z); //del
 	// printf("str - %s\n", str + i); //del
 	return (origin);
 }

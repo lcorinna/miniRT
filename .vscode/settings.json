@@ -21,6 +21,7 @@
 		"istream": "c",
 		"ostream": "c",
 		"ranges": "c",
-		"locale": "c"
+		"locale": "c",
+		"queue": "c"
 	}
 }

@@ -6,11 +6,16 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/01 21:42:00 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/02 21:46:23 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
+
+void	ft_cylinder(t_main *data, char *str)
+{
+	printf("CYLINDER\n"); //del
+}
 
 void	ft_type_selection(t_main *data, char *type, char *str)
 {
@@ -20,22 +25,25 @@ void	ft_type_selection(t_main *data, char *type, char *str)
 		return ;
 	else if (ft_strncmp("A", type, 2) == 0)
 		ft_ambiant(data, type, str);
-	else if (ft_strncmp("C", type, 1) == 0)
+	else if (ft_strncmp("C", type, 2) == 0)
 		ft_camera(data, type, str);
-	// else if (ft_strncmp("L", type, 1) == 0)
-	// 	printf("LIGHT\n"); //del
-	// else if (ft_strncmp("pl", type, 3) == 0)
-	// 	printf("PLANE\n"); //del
-	// else if (ft_strncmp("sp", type, 3) == 0)
-	// 	printf("SPHERE\n"); //del
-	// else if (ft_strncmp("cy", type, 3) == 0)
-	// 	printf("CYLINDER\n"); //del
+	else if (ft_strncmp("L", type, 2) == 0)
+		ft_light(data, str);
+	else if (ft_strncmp("pl", type, 3) == 0)
+		ft_plane(data, str);
+	else if (ft_strncmp("sp", type, 3) == 0)
+		ft_sphere(data, str);
+	else if (ft_strncmp("cy", type, 3) == 0)
+		ft_cylinder(data, str);
 	else
 	{
 		ft_putstr_fd(type, 2);
 		ft_putstr_fd(": has an unidentified type\n", 2);
 		sleep(10); //del
 	}
+// 	printf("amb - %f\n", data->scene.amb.bright);
+// 	printf("cam - %f\n", data->scene.cam.fov);
+// 	printf("light - %f\n", data->scene.lght.bright);
 }
 
 void	ft_which_element(t_main *data, char *str)

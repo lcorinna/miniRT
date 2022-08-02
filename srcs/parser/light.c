@@ -1,65 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ambiant.c                                          :+:      :+:    :+:   */
+/*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 18:49:03 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/02 12:42:19 by lcorinna         ###   ########.fr       */
+/*   Created: 2022/07/15 18:13:30 by lcorinna          #+#    #+#             */
+/*   Updated: 2022/08/02 12:43:35 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-t_ambient	ft_new_amb(float bright, t_vec3 *clr)
+t_light	ft_new_light(t_vec3 *position, float bright, t_vec3 *color)
 {
-	t_ambient	new;
+	t_light	new;
 
+	new.pos = *position;
 	new.bright = bright;
-	new.clr = *clr;
+	new.clr = *color;
 	return (new);
 }
 
-float	ft_ratio_ambiant(t_main *data, char *str, float bright)
-{
-	char	number[2];
-	float	decimal;
-
-	if (str[1] != '.' || str[3] != 32 && (str[3] < 8 || str[3] > 14))
-		return (-1);
-	number[0] = str[0];
-	number[1] = '\0';
-	bright = (float)ft_atoi(number);
-	number[0] = str[2];
-	number[1] = '\0';
-	decimal = (float)ft_atoi(number);
-	decimal /= 10;
-	bright += decimal;
-	if (bright < (0.0) || bright > (1.0))
-		return (-1);
-	return (bright);
-}
-
-void	ft_ambiant(t_main *data, char *type, char *str)
+void	ft_light(t_main *data, char *str)
 {
 	int		i;
+	t_vec3	position;
 	float	bright;
 	t_vec3	color;
 
 	i = 0;
-	bright = 0;
 	i = ft_skip_type(str, i); //пропускаю тип
+	position = ft_point_in_space(data, str + i);
+	// printf("pos - %f\n", position.x); //del
+	i = ft_skip_visible_char_munis(str, i); //пропускаю тип
+	i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
 	bright = ft_ratio_ambiant(data, str + i, bright);
-	// printf("bright - %f\n", bright); //del
+	// printf("br - %f\n", bright); //del
 	i = ft_skip_visible_char(str, i); //пропускаю тип
 	i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
 	color = ft_pars_clr(data, str + i, color);
-	if (bright == -1 || color.x == -1)
+	if (position.x == MAXFLOAT || bright == -1 || color.x == -1)
 	{
 		ft_data_entry_error(str);
 		return ;
 	}
-	data->scene.amb = ft_new_amb(bright, &color);
-	printf("AMBIANT DONE\n"); //del
+	data->scene.lght = ft_new_light(&position, bright, &color);
+	printf("LIGHT DONE\n"); //del
 }

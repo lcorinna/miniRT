@@ -6,9 +6,11 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 21:37:35 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/01 21:39:11 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/02 20:48:36 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../minirt.h"
 
 int	ft_skip_visible_char_munis(char *str, int i)
 {
@@ -53,4 +55,21 @@ int	ft_skip_type(char *str, int i)
 	i = ft_skip_visible_char(str, i); //пропускаю тип
 	i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
 	return (i);
+}
+
+int	ft_chec_direction(t_vec3 dir)
+{
+	int	flag;
+
+	flag = -1;
+	if (dir.x < -1 || dir.x > 1 || dir.y < -1 || dir.y > 1 || \
+													dir.z < -1 || dir.z > 1)
+		flag = 3;
+	if (dir.x == -1 || dir.x == 1)
+		flag++;
+	if (dir.y == -1 || dir.y == 1)
+		flag++;
+	if (dir.z == -1 || dir.z == 1)
+		flag++;
+	return (flag);
 }
