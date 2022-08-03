@@ -6,21 +6,14 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/02 21:46:23 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/03 23:02:18 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-void	ft_cylinder(t_main *data, char *str)
-{
-	printf("CYLINDER\n"); //del
-}
-
 void	ft_type_selection(t_main *data, char *type, char *str)
 {
-	// printf("type - %s\n", type); //del
-	// printf("str - %s\n", str); //del
 	if (type[0] == '\0')
 		return ;
 	else if (ft_strncmp("A", type, 2) == 0)
@@ -34,16 +27,18 @@ void	ft_type_selection(t_main *data, char *type, char *str)
 	else if (ft_strncmp("sp", type, 3) == 0)
 		ft_sphere(data, str);
 	else if (ft_strncmp("cy", type, 3) == 0)
-		ft_cylinder(data, str);
+		ft_cylinder(data, str, 0);
 	else
 	{
 		ft_putstr_fd(type, 2);
 		ft_putstr_fd(": has an unidentified type\n", 2);
-		sleep(10); //del
 	}
-// 	printf("amb - %f\n", data->scene.amb.bright);
-// 	printf("cam - %f\n", data->scene.cam.fov);
-// 	printf("light - %f\n", data->scene.lght.bright);
+	if (data->scene.sh != NULL)
+	{
+		printf("data - %d\n", data->scene.sh->type); //del
+		printf("data - %f\n", data->scene.sh->pos.x); //del
+		printf("data - %p\n", data->scene.sh); //del
+	}
 }
 
 void	ft_which_element(t_main *data, char *str)
@@ -80,6 +75,7 @@ void	ft_writing_scene(t_main *data)
 {
 	int		i;
 
+	data->scene = (t_scene){};
 	i = 0;
 	while (data->maps[i])
 	{
@@ -112,6 +108,12 @@ int	ft_parser(int argc, char **argv, t_main *data)
 	ft_clean_maps(data);
 	return (0);
 }
+
+/*
+проверка на одну камеру, один свет
+проверка координат, чтобы не было запятых после значения
+*/
+
 
 // int	ft_parser(int argc, char **argv, t_main *data)
 // {

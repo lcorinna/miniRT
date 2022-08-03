@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:19:55 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/02 20:50:12 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/03 17:49:13 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,14 @@ void	ft_camera(t_main *data, char *type, char *str)
 	float	fov;
 
 	i = 0;
-	i = ft_skip_type(str, i); //пропускаю тип
+	i = ft_search_next_value(str, i, 1); //пропускаю тип
 	origin = ft_point_in_space(data, str + i);
 	// printf("camera x - %f y - %f z - %f\n", origin.x, origin.y, origin.z); //del
-	i = ft_skip_visible_char_munis(str, i); //пропускаю тип
-	i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
+	i = ft_search_next_value(str, i, 2);
 	direction = ft_point_in_space(data, str + i);
-	i = ft_skip_visible_char_munis(str, i); //пропускаю тип
-	i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
+	i = ft_search_next_value(str, i, 2);
 	fov = ft_fov_cam(str + i);
-	if (origin.x == MAXFLOAT || fov == MAXFLOAT || ft_chec_direction(direction))
+	if (origin.x == MAXFLOAT || fov == MAXFLOAT || ft_check_dir(direction))
 	{
 		ft_data_entry_error(str);
 		return ;

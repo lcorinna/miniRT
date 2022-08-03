@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 21:37:35 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/02 20:48:36 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/03 17:46:26 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,26 @@ int	ft_skip_invisible_char(char *str, int i)
 	return (i);
 }
 
-int	ft_skip_type(char *str, int i)
+int	ft_search_next_value(char *str, int i, int flag)
 {
-	i = ft_skip_invisible_char(str, i); //если есть пробел до знач, то пропускаю
-	i = ft_skip_visible_char(str, i); //пропускаю тип
-	i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
+	if (flag == 1)
+	{
+		i = ft_skip_invisible_char(str, i); //если есть пробел до знач, то пропускаю
+		i = ft_skip_visible_char(str, i); //пропускаю тип
+		i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
+	}
+	else if (flag == 2)
+	{
+		i = ft_skip_visible_char_munis(str, i); //пропускаю тип
+		i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
+	}
 	return (i);
 }
 
-int	ft_chec_direction(t_vec3 dir)
+int	ft_check_dir(t_vec3 dir)
 {
-	int	flag;
-
-	flag = -1;
-	if (dir.x < -1 || dir.x > 1 || dir.y < -1 || dir.y > 1 || \
-													dir.z < -1 || dir.z > 1)
-		flag = 3;
-	if (dir.x == -1 || dir.x == 1)
-		flag++;
-	if (dir.y == -1 || dir.y == 1)
-		flag++;
-	if (dir.z == -1 || dir.z == 1)
-		flag++;
-	return (flag);
+	if (dir.x < -1.0 || dir.x > 1.0 || dir.y < -1.0 || dir.y > 1.0 || \
+													dir.z < -1.0 || dir.z > 1.0)
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/02 21:47:16 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/03 23:07:32 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ typedef struct s_shapes
 	int					type;
 	t_vec3				pos; //sphere plane cylinder
 	t_vec3				clr; //sphere plane cylinder
-	float				rad; //sphere
-	t_vec3				direction; //plane
+	float				rad; //sphere cylinder
+	t_vec3				direction; //plane cylinder
 	float				diameter; //cylinder
 	float				height; //cylinder
 	struct s_shapes		*next;
@@ -133,8 +133,8 @@ t_vec3		ft_point_in_space(t_main *data, char *str);
 int			ft_skip_invisible_char(char *str, int i);
 int			ft_skip_visible_char(char *str, int i);
 int			ft_skip_visible_char_munis(char *str, int i);
-int			ft_skip_type(char *str, int i);
-int			ft_chec_direction(t_vec3 dir);
+int			ft_search_next_value(char *str, int i, int flag);
+int			ft_check_dir(t_vec3 dir);
 
 /* ambiant */
 void		ft_ambiant(t_main *data, char *type, char *str);
@@ -146,21 +146,24 @@ void		ft_camera(t_main *data, char *type, char *str);
 /* light */
 void		ft_light(t_main *data, char *str);
 
-/* shapes */
-t_shapes	ft_new_plane(t_vec3 *position, t_vec3 *color, t_vec3 *direction);
-t_shapes	ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad);
-t_shapes	ft_new_cylinder(t_vec3 *position, t_vec3 *color, float diameter, \
-																float height);
-
-/* shapes_untils */
-void		ft_plane(t_main *data, char *str);
-void		ft_sphere(t_main *data, char *str);
-void		ft_cylinder(t_main *data, char *str);
-
 /* scene_list */
 void		ft_shape_add_front(t_shapes **lst, t_shapes *new);
 t_shapes	*ft_shape_last(t_shapes *lst);
-void		ft_shape_add_back(t_shapes **lst, t_shapes *new);
+void		ft_shape_add_back(t_shapes *lst, t_shapes *new);
+
+/* plane */
+void		ft_plane(t_main *data, char *str);
+// t_shapes	ft_new_plane(t_vec3 *position, t_vec3 *color, t_vec3 *direction);
+
+/* sphere */
+void		ft_sphere(t_main *data, char *str);
+float		ft_found_diameter(char *str);
+// t_shapes	ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad);
+
+/* cylinder */
+void		ft_cylinder(t_main *data, char *str, int i);
+t_shapes	ft_new_cylinder(t_vec3 *position, t_vec3 *direction, \
+												float diameter, t_vec3 *color);
 
 /* scene */
 t_scene		ft_new_scene(t_ambient *ambient, t_camera *cam, t_light *light, t_shapes *sh);

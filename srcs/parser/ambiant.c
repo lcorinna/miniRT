@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:49:03 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/02 12:42:19 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/03 17:48:46 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,10 @@ void	ft_ambiant(t_main *data, char *type, char *str)
 
 	i = 0;
 	bright = 0;
-	i = ft_skip_type(str, i); //пропускаю тип
+	i = ft_search_next_value(str, i, 1); //пропускаю тип
 	bright = ft_ratio_ambiant(data, str + i, bright);
 	// printf("bright - %f\n", bright); //del
-	i = ft_skip_visible_char(str, i); //пропускаю тип
-	i = ft_skip_invisible_char(str, i); //пропускаю пробелы до след значения
+	i = ft_search_next_value(str, i, 2);
 	color = ft_pars_clr(data, str + i, color);
 	if (bright == -1 || color.x == -1)
 	{
