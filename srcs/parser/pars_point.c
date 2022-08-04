@@ -1,94 +1,81 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_support.c                                   :+:      :+:    :+:   */
+/*   pars_point.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 19:06:55 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/02 20:40:37 by lcorinna         ###   ########.fr       */
+/*   Created: 2022/08/04 18:54:32 by lcorinna          #+#    #+#             */
+/*   Updated: 2022/08/04 18:54:40 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-float	ft_pars_one_clr(char *str, int	*i)
+int	ft_pre_assembly_utils(char *str, char *diametr, int *i)
 {
-	char	color[4];
-	float	part;
-	int		j;
+	int	j;
 
 	j = 0;
+	// printf("DDDD %d\n", *i);
 	if (!ft_isdigit(str[*i]))
-		return (MAXFLOAT);
-	while (str[*i] != '\0' && str[*i] != '\n' && str[*i] != ',' && \
-		str[*i] != 32 && (str[*i] < 8 || str[*i] > 14))
+		return (1);
+	while (str[*i] != '\0' && str[*i] != '\n' && str[*i] != 32 && j < 10 && \
+			str[*i] != '.' && str[*i] != ',' && (str[*i] < 8 || str[*i] > 14))
 	{
+		// printf("str[%d] - %c\n", *i, str[*i]); //del
 		if (!ft_isdigit(str[*i]))
-			return (MAXFLOAT);
-		color[j] = '\0';
-		color[j] = str[*i];
+			return (1);
+		diametr[j] = str[*i];
 		(*i)++;
 		j++;
+		diametr[j] = '\0';
 	}
-	(*i)++;
-	color[j] = '\0';
-	part = (float)ft_atoi(color);
-	part = roundf(part);
-	return (part);
+	return (0);
 }
 
-t_vec3	ft_pars_clr(t_main *data, char *str, t_vec3	clr)
+float	ft_pre_assembly_support(char *str, char *decimal, int *i, int j)
 {
-	int		i;
-	float	r;
-	float	g;
-	float	b;
+	float	dec;
 
-	i = 0;
-	r = ft_pars_one_clr(str, &i);
-	// printf("r - %f\n", r); //del
-	g = ft_pars_one_clr(str, &i);
-	// printf("g - %f\n", g); //del
-	b = ft_pars_one_clr(str, &i);
-	// printf("b - %f\n", b); //del
-	if (r < 0.0 || r > 255.0 || g < 0.0 || g > 255.0 || b < 0.0 || b > 255.0)
-	{
-		clr = ft_new_vec3(-1, -1, -1);
-		return (clr);
-	}	
-	clr = ft_new_vec3(r, g, b);
-	return (clr);
+	dec = 1;
+	(*i)++;
+	if (ft_pre_assembly_utils(str, decimal, i))
+		return (MAXFLOAT);
+	dec = (float)ft_atoi(decimal);
+	while (str[++j] == '0')
+		dec /= 10;
+	dec /= 10;
+	return (dec);
 }
 
 float	ft_pre_assembly(char *str, int *i, float *res)
 {
-	char	number[4];
-	int		j;
+	char	number[11];
+	char	decimal[11];
+	float	dec;
 
-	j = 0;
+	dec = 1;
 	if (str[*i] == '-')
 	{
 		*res = -1;
+		dec = -1;
 		(*i)++;
 	}
-	if (!ft_isdigit(str[*i]))
+	if (ft_pre_assembly_utils(str, number, i))
 		return (MAXFLOAT);
-	while (str[*i] != '\0' && str[*i] != '\n' && str[*i] != ',' && \
-		str[*i] != 32 && (str[*i] < 8 || str[*i] > 14))
+	*res *= (float)ft_atoi(number);
+	if (str[*i] == '.')
 	{
-		if (!ft_isdigit(str[*i]))
+		dec *= ft_pre_assembly_support(str, decimal, i, *i);
+		if (dec == MAXFLOAT)
 			return (MAXFLOAT);
-		number[j] = '\0';
-		number[j] = str[*i];
-		(*i)++;
-		j++;
+		*res += dec;
+		// printf("dec - %f\n", dec); //del
+		// printf("res - %f\n", *res); //del
 	}
 	if (str[*i] == ',')
 		(*i)++;
-	number[j] = '\0';
-	*res *= (float)ft_atoi(number);
-	*res = roundf(*res);
 	return (*res);
 }
 
@@ -119,10 +106,4 @@ t_vec3	ft_point_in_space(t_main *data, char *str)
 	origin = ft_new_vec3(x, y, z);
 	// printf("str - %s\n", str + i); //del
 	return (origin);
-}
-
-void	ft_data_entry_error(char *str)
-{
-	ft_putstr_fd("Check the line for the correct input\n", 2);
-	ft_putstr_fd(str, 2);
 }

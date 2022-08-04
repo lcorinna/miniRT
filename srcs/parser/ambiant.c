@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:49:03 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/03 17:48:46 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/04 20:41:29 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_ambiant(t_main *data, char *type, char *str)
 	color = ft_pars_clr(data, str + i, color);
 	if (bright == -1 || color.x == -1)
 	{
-		ft_data_entry_error(str);
+		ft_data_entry_error(str, NULL);
 		return ;
 	}
 	data->scene.amb = ft_new_amb(bright, &color);

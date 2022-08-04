@@ -6,11 +6,19 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:53:39 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/01 18:55:42 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/04 20:49:42 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
+
+void	ft_data_entry_error(char *str, t_shapes *shape)
+{
+	if (shape == NULL)
+		free(shape);
+	ft_putstr_fd("Check the line for the correct input\n", 2);
+	ft_putstr_fd(str, 2);
+}
 
 void	ft_writing_array(t_main *data, int count, char *f_name)
 {
@@ -19,7 +27,7 @@ void	ft_writing_array(t_main *data, int count, char *f_name)
 	i = 0;
 	data->maps = malloc(sizeof(char *) * (count + 1));
 	if (!data->maps)
-		ft_exit("Memory was not allocated\n", 1);
+		ft_exit(data, "Memory was not allocated\n", 1);
 	close(data->fd);
 	data->fd = open(f_name, O_RDONLY);
 	while (count != 0)
@@ -27,7 +35,7 @@ void	ft_writing_array(t_main *data, int count, char *f_name)
 		data->maps[i] = get_next_line(data->fd);
 		// printf("data->maps[%d] - %s\n", i, data->maps[i]); //del
 		if (data->maps[i] == NULL)
-			ft_exit("Memory was not allocated\n", 1);
+			ft_exit(data, "Memory was not allocated\n", 1);
 		i++;
 		count--;
 	}
@@ -49,7 +57,7 @@ int	ft_count_lines(t_main *data)
 		++i;
 	}
 	if (i == 0)
-		ft_exit("Empty file\n", 1);
+		ft_exit(data, "Empty file\n", 1);
 	return (i);
 }
 
@@ -70,11 +78,11 @@ void	ft_check_file(t_main *data, char *f_name)
 	{
 		if (f_name[i] == '.')
 			if (ft_strncmp(f_name + i, ".rt", 4))
-				ft_exit("The file must have the extension \".rt\"\n", 1);
+				ft_exit(data, "The file must have the extension \".rt\"\n", 1);
 		i++;
 	}
 	data->fd = open(f_name, O_RDONLY);
 	if (data->fd == -1)
-		ft_exit("Mistake \"open\"", 2);
+		ft_exit(data, "Mistake \"open\"", 2);
 	data->n_wndw = f_name;
 }

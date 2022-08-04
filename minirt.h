@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/03 23:07:32 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/04 20:48:37 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,7 @@ void		ft_check_file(t_main *data, char *f_name);
 void		ft_read_file(t_main *data, char *f_name);
 int			ft_count_lines(t_main *data);
 void		ft_writing_array(t_main *data, int count, char *f_name);
-
-/* parser_support */
-void		ft_data_entry_error(char *str);
-t_vec3		ft_pars_clr(t_main *data, char *str, t_vec3	clr);
-t_vec3		ft_point_in_space(t_main *data, char *str);
+void		ft_data_entry_error(char *str, t_shapes *shape);
 
 /* skip_char */
 int			ft_skip_invisible_char(char *str, int i);
@@ -135,6 +131,12 @@ int			ft_skip_visible_char(char *str, int i);
 int			ft_skip_visible_char_munis(char *str, int i);
 int			ft_search_next_value(char *str, int i, int flag);
 int			ft_check_dir(t_vec3 dir);
+
+/* pars_point */
+t_vec3		ft_pars_clr(t_main *data, char *str, t_vec3	clr);
+
+/* pars_color */
+t_vec3		ft_point_in_space(t_main *data, char *str);
 
 /* ambiant */
 void		ft_ambiant(t_main *data, char *type, char *str);
@@ -149,7 +151,7 @@ void		ft_light(t_main *data, char *str);
 /* scene_list */
 void		ft_shape_add_front(t_shapes **lst, t_shapes *new);
 t_shapes	*ft_shape_last(t_shapes *lst);
-void		ft_shape_add_back(t_shapes *lst, t_shapes *new);
+void		ft_shape_add_back(t_shapes **lst, t_shapes *new);
 
 /* plane */
 void		ft_plane(t_main *data, char *str);
@@ -162,8 +164,6 @@ float		ft_found_diameter(char *str);
 
 /* cylinder */
 void		ft_cylinder(t_main *data, char *str, int i);
-t_shapes	ft_new_cylinder(t_vec3 *position, t_vec3 *direction, \
-												float diameter, t_vec3 *color);
 
 /* scene */
 t_scene		ft_new_scene(t_ambient *ambient, t_camera *cam, t_light *light, t_shapes *sh);
@@ -201,7 +201,7 @@ int			ft_buttons(int key, t_main *data);
 int			ft_exit_cross(int key, t_main *data);
 
 /* program_completion */
-int			ft_exit(char *str, int flag);
+int			ft_exit(t_main *data, char *str, int flag);
 
 #endif
 

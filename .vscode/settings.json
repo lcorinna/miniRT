@@ -1,28 +1,10 @@
 {
 	"files.associations": {
-		"__functional_base": "c",
-		"__functional_base_03": "c",
-		"__hash_table": "c",
-		"__tuple": "c",
-		"algorithm": "c",
 		"array": "c",
-		"chrono": "c",
-		"compare": "c",
-		"cstddef": "c",
-		"type_traits": "c",
-		"functional": "c",
 		"iterator": "c",
-		"limits": "c",
-		"memory": "c",
-		"random": "c",
-		"ratio": "c",
-		"tuple": "c",
-		"utility": "c",
-		"istream": "c",
-		"ostream": "c",
-		"ranges": "c",
-		"locale": "c",
-		"queue": "c",
-		"ios": "c"
+		"string": "c",
+		"string_view": "c",
+		"vector": "c",
+		"ranges": "c"
 	}
 }

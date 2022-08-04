@@ -6,14 +6,21 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/03 23:02:18 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/04 21:00:09 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
+// int	check_type(t_main *data, char *str, char *type, flag)
+// {
+	
+// }
+
 void	ft_type_selection(t_main *data, char *type, char *str)
 {
+	// if (check_type(data, str, type, 1))
+	// 	return ;
 	if (type[0] == '\0')
 		return ;
 	else if (ft_strncmp("A", type, 2) == 0)
@@ -32,12 +39,7 @@ void	ft_type_selection(t_main *data, char *type, char *str)
 	{
 		ft_putstr_fd(type, 2);
 		ft_putstr_fd(": has an unidentified type\n", 2);
-	}
-	if (data->scene.sh != NULL)
-	{
-		printf("data - %d\n", data->scene.sh->type); //del
-		printf("data - %f\n", data->scene.sh->pos.x); //del
-		printf("data - %p\n", data->scene.sh); //del
+		// sleep (10); //del
 	}
 }
 
@@ -58,7 +60,7 @@ void	ft_which_element(t_main *data, char *str)
 	printf("size - %d\n", size); //del
 	type = malloc(sizeof(char) * (size + 1));
 	if (!type)
-		ft_exit("Memory was not allocated\n", 1);
+		ft_exit(data, "Memory was not allocated\n", 1);
 	while (str[i] != '\0' && j != size)
 	{
 		type[j] = '\0';

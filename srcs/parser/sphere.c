@@ -6,23 +6,26 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:29:57 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/03 23:07:46 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/04 20:42:44 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-t_shapes	ft_new_sphere(t_vec3 *center, t_vec3 *color, float diameter)
+t_shapes	*ft_new_sphere(t_vec3 *center, t_vec3 *color, float diameter)
 {
-	t_shapes	new;
+	t_shapes	*new;
 
-	new = (t_shapes){};
-	new.type = SPHERE;
-	new.pos = *center;
-	new.clr = *color;
-	new.diameter = diameter;
-	new.rad = diameter / 2;
-	new.next = NULL;
+	new = malloc(sizeof(t_shapes));
+	if (new == NULL)
+		return (NULL);
+	*new = (t_shapes){};
+	new->type = SPHERE;
+	new->pos = *center;
+	new->clr = *color;
+	new->diameter = diameter;
+	new->rad = diameter / 2;
+	new->next = NULL;
 	return (new);
 }
 
@@ -31,7 +34,7 @@ int	ft_found_diameter_utils(char *str, char *diametr, int *i)
 	int	j;
 
 	j = 0;
-	while (str[*i] != '\0' && str[*i] != '\n' && str[*i] != 32 && \
+	while (str[*i] != '\0' && str[*i] != '\n' && str[*i] != 32 && j < 10 && \
 								str[*i] != '.' && (str[*i] < 8 || str[*i] > 14))
 	{
 		if (!ft_isdigit(str[*i]))
@@ -76,7 +79,7 @@ float	ft_found_diameter(char *str)
 void	ft_sphere(t_main *data, char *str)
 {
 	int			i;
-	t_shapes	sphere;
+	t_shapes	*sphere;
 	t_vec3		center;
 	t_vec3		color;
 	float		diameter;
@@ -89,18 +92,15 @@ void	ft_sphere(t_main *data, char *str)
 	// printf("alan - %f\n", diameter); //del
 	i = ft_search_next_value(str, i, 2);
 	color = ft_pars_clr(data, str + i, color);
-	if (center.x == MAXFLOAT || diameter == MAXFLOAT || color.x == -1)
+	sphere = ft_new_sphere(&center, &color, diameter);
+	if (center.x == MAXFLOAT || diameter == MAXFLOAT || color.x == -1 || \
+																sphere == NULL)
 	{
-		ft_data_entry_error(str);
+		ft_data_entry_error(str, sphere);
 		return ;
 	}
-	sphere = ft_new_sphere(&center, &color, diameter);
-	ft_shape_add_back(data->scene.sh, &sphere);
+	// printf("sphere - 	%p\n", &sphere); //del
+	// printf("sh - 		%p\n", data->scene.sh); //del
+	ft_shape_add_back(&data->scene.sh, sphere);
 	printf("SPHERE DONE\n"); //del
-	printf("qwer one  - %d\n", data->scene.sh->type); //del
-	printf("qwer one - %f\n", data->scene.sh->pos.x); //del
-	printf("qwer one  - %p\n", data->scene.sh); //del
-	printf("qwer two  - %d\n", data->scene.sh->next->type); //del
-	printf("qwer two  - %f\n", data->scene.sh->next->pos.x); //del
-	printf("qwer two  - %p\n", data->scene.sh->next); //del
 }

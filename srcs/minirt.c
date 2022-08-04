@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/02 15:17:30 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/04 20:48:51 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int	main(int argc, char **argv)
 
 	data = (t_main){};
 	if (argc != 2)
-		ft_exit("Check the number of arguments\n", 1);
+		ft_exit(&data, "Check the number of arguments\n", 1);
 	ft_parser(argc, argv, &data);
-	printf("%f\n", data.scene.amb.clr.x); //del
-	printf("%f\n", data.scene.sh->pos.x); //del
+	printf("main %f\n", data.scene.amb.clr.x); //del
+	printf("main %f\n", data.scene.sh->pos.x); //del
 	// printf("HERE\n"); //del
 	// ft_calibration(&data, data.scene, data.scene->cam);
 	// ft_initialization(&data); 

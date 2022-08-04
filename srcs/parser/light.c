@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 18:13:30 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/03 17:49:33 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/04 20:41:56 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_light(t_main *data, char *str)
 	color = ft_pars_clr(data, str + i, color);
 	if (position.x == MAXFLOAT || bright == -1 || color.x == -1)
 	{
-		ft_data_entry_error(str);
+		ft_data_entry_error(str, NULL);
 		return ;
 	}
 	data->scene.lght = ft_new_light(&position, bright, &color);
