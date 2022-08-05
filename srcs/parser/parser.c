@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 16:40:14 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:01:37 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_type_selection(t_main *data, char *type, char *str)
 {
-	ft_check_repetitions(data, str, type, 1);
+	ft_check_repetitions(data, str, type);
 	if (type[0] == '\0')
 		return ;
 	else if (ft_strncmp("A", type, 2) == 0)
@@ -102,6 +102,6 @@ int	ft_parser(int argc, char **argv, t_main *data)
 	ft_read_file(data, argv[1]);
 	ft_writing_scene(data);
 	ft_clean_maps(data);
-	ptintf("\n\n"); //del
+	printf("\n\n"); //del
 	return (0);
 }

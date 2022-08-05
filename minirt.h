@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 16:35:27 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:02:11 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@
 # define RED 16711680
 # define GREEN 65280
 # define BLUE 255
+
+/* coefficients */
+# define DIFF 2
+# define SPEC 4
+# define SHADOW -30
 
 /* buttons */
 # define ESC 53
@@ -142,7 +147,7 @@ t_vec3		ft_pars_clr(t_main *data, char *str, t_vec3	clr);
 t_vec3		ft_point_in_space(t_main *data, char *str);
 
 /* ambiant */
-void		ft_type_selection(t_main *data, char *type, char *str);
+void		ft_check_repetitions(t_main *data, char *str, char *type);
 void		ft_ambiant(t_main *data, char *type, char *str);
 float		ft_ratio_ambiant(t_main *data, char *str, float bright);
 
@@ -164,7 +169,6 @@ void		ft_plane(t_main *data, char *str);
 /* sphere */
 void		ft_sphere(t_main *data, char *str);
 float		ft_found_diameter(char *str);
-// t_shapes	ft_new_sphere(t_vec3 *center, t_vec3 *color, float rad);
 
 /* cylinder */
 void		ft_cylinder(t_main *data, char *str, int i);
@@ -186,7 +190,7 @@ t_vec3		ft_mul(t_vec3 *a, t_vec3 *b);
 t_vec3		ft_s_mul(t_vec3 *a, float value);
 t_vec3		ft_cross(t_vec3 *a, t_vec3 *b);
 float		ft_dist(t_vec3 a, t_vec3 b);
-t_vec3		reflect(t_vec3 *rd, t_vec3 *n);
+t_vec3		ft_reflect(t_vec3 *rd, t_vec3 *n);
 
 /* draw */
 int			ft_initialization(t_main *data);
@@ -198,6 +202,7 @@ void		ft_calibration(t_main *data, t_scene *scene, t_camera *cam);
 void		ft_ray_tracing(t_main *data, void *mlx, void *window, t_scene *scene);
 
 // t_vec2		ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_sphere *sphere);
+float		ft_sphere_intersect(t_shapes *sphere, t_vec3 *cam_origin, t_vec3 *direction);
 int			ft_pxl_color(t_main *data, t_scene *scene, t_shapes *sh, t_vec3 *ray);
 
 /* buttons */

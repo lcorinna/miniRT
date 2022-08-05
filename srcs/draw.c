@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:38:49 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/29 15:01:10 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:05:12 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ t_mlx	ft_new_mlx(t_main *data)
 	new = (t_mlx){};
 	new.mlx = mlx_init();
 	if (!new.mlx)
-		ft_exit("mlx_init error\n", 2);
+		ft_exit(data, "mlx_init error\n", 2);
 	new.win = mlx_new_window(new.mlx, WIDTH, HEIGHT, data->n_wndw);
 	if (!new.win)
-		ft_exit("mlx_new_window error\n", 2);
+		ft_exit(data, "mlx_new_window error\n", 2);
 	return (new);
 }
 
@@ -43,15 +43,15 @@ void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int *) dest = color;
 }
 
-void	ft_new_image(t_mlx *mlx)
+void	ft_new_image(t_main *data, t_mlx *mlx)
 {
 	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
 	if (mlx->img == NULL)
-		ft_exit("mlx_new_image error\n", 2);
+		ft_exit(data, "mlx_new_image error\n", 2);
 	mlx->addr = mlx_get_data_addr(mlx->img, \
 							mlx->bits_per_pixel, mlx->line_length, mlx->endian);
 	if (mlx->addr == NULL)
-		ft_exit("mlx_get_data_addr error\n", 2);
+		ft_exit(data, "mlx_get_data_addr error\n", 2);
 }
 
 t_vec3	ft_find_dir(float dst, int x, int y, t_vec3	cam_dir)
@@ -73,13 +73,13 @@ t_vec3	ft_find_dir(float dst, int x, int y, t_vec3	cam_dir)
 
 t_vec3	ft_rotate_dir(t_camera *cam, t_vec3 *dir)
 {
-	float	n_x; //почему n? 
+	float	n_x; //new 
 	float	n_y;
 	float	n_z;
 	float	cut;
 
 	cut = cam->angle_y;
-	n_x = dir->x * cos(cut) - dir->z * sin(cut); //это нужно?
+	n_x = dir->x * cos(cut) - dir->z * sin(cut);
 	n_z = dir->x * sin(cut) + dir->z * cos(cut);
 	cut = cam->angle_z;
 	n_x = dir->x * cos(cut) - dir->y * sin(cut);
@@ -89,7 +89,7 @@ t_vec3	ft_rotate_dir(t_camera *cam, t_vec3 *dir)
 	return (*dir);
 }
 
-float	ft_plane_interect(t_shapes *plane, t_vec3 *cam_origin, t_vec3 *direction)
+float	ft_plane_intersect(t_shapes *plane, t_vec3 *cam_origin, t_vec3 *direction)
 {
 	float	res;
 	float	t;
@@ -168,18 +168,18 @@ t_vec3	ft_cylinder_norm(t_shapes *cyl, t_vec3 *inter_point)
 	t_vec3	tmp;
 	float	t;
 
-	tmp = ft_s_mul(cyl->direction, cyl->height);
-	top_center = ft_add(cyl->pos, &tmp);
-	if (ft_length(ft_sub(inter_point, cyl->pos)) < cyl->rad)
-		norm = ft_s_mul(cyl->pos. -1);
-	else if (ft_length(ft_sub(inter_point, top_center)) < cyl->rad)
+	tmp = ft_s_mul(&cyl->direction, cyl->height);
+	top_center = ft_add(&cyl->pos, &tmp);
+	if (ft_length(ft_sub(inter_point, &cyl->pos)) < cyl->rad)
+		norm = ft_s_mul(&(cyl->pos), -1);
+	else if (ft_length(ft_sub(inter_point, &top_center)) < cyl->rad)
 		norm = cyl->direction;
 	else
 	{
-		tmp = ft_sub(inter, cyl->pos);
-		t = ft_dot(&tmp, cyl->direction);
-		tmp = ft_s_mul(cyl->norm, t);
-		pt = ft_add(cyl->pos, &tmp);
+		tmp = ft_sub(inter_point, &cyl->pos);
+		t = ft_dot(&tmp, &(cyl->direction));
+		tmp = ft_s_mul(&(cyl->direction), t);
+		pt = ft_add(&(cyl->pos), &tmp);
 		tmp = ft_sub(inter_point, &pt);
 		norm = ft_norm(&tmp);
 	}
@@ -193,21 +193,111 @@ float	ft_drop_shadow(t_main *data, t_shapes *shape, t_vec3 *inter_point)
 	t_shapes	*tmp;
 	float		dist;
 
-	vec_tmp = ft_sub(data->scene.lght.pos, inter_point);
-	dir	= ft_norm(vec_tmp);
+	vec_tmp = ft_sub(&(data->scene.lght.pos), inter_point);
+	dir = ft_norm(&vec_tmp);
 	tmp = data->scene.sh;
 	while (tmp)
 	{
-		dist = ft_find_dist(tmp, inter_point, dir);
+		dist = ft_find_dist(tmp, inter_point, &dir);
 		if (tmp->type != shape->type)
 		{
 			if (dist > 0 && dist < ft_dist(*inter_point, data->scene.lght.pos) \
-							&& tmp->pos != tmp->pos && tmp->clr != shape->clr) //возможно нужно больше условий
+			&& tmp != shape)
+// && tmp->pos != shape->pos && tmp->clr != shape->clr) //возможно нужно больше условий
 				return (1);
 		}
 		tmp = tmp->next;
 	}
 	return (0);
+}
+
+int	ft_rgb(int color, char level)
+{
+	if (level == 'R')
+		return ((color >> 16) & 0xFF);
+	else if (level == 'G')
+		return ((color >> 8) & 0xFF);
+	else if (level == 'B')
+		return (color & 0xFF);
+	return (0);
+}
+
+int	ft_add_color3(int c1, int c2, int c3)
+{
+	int	res;
+	int	r;
+	int	g;
+	int	b;
+
+	r = rgb(c1, 'R') + rgb(c2, 'R') + rgb(c3, 'R');
+	if (r > 255)
+		r = 255;
+	else if (r < 0)
+		r = 0;
+	g = rgb(c1, 'G') + rgb(c2, 'G') + rgb(c3, 'G');
+	if (g > 255)
+		g = 255;
+	else if (g < 0)
+		g = 0;
+	b = rgb(c1, 'B') + rgb(c2, 'B') + rgb(c3, 'B');
+	if (b > 255)
+		b = 255;
+	else if (b < 0)
+		b = 0;
+	res = (r << 16) | (g << 8) | b;
+	return (res);
+}
+
+int	ft_mul_clr(t_vec3 clr, float ratio)
+{
+	int	res;
+	int	r;
+	int	g;
+	int	b;
+
+	r = clr.x * ratio;
+	if (r > 255)
+		r = 255;
+	else if (r < 0)
+		r = 0;
+	g = clr.y * ratio;
+	if (g > 255)
+		g = 255;
+	else if (g < 0)
+		g = 0;
+	b = clr.z * ratio;
+	if (b > 255)
+		b = 255;
+	else if (b < 0)
+		b = 0;
+	res = (r << 16) | (g << 8) | b;
+	return (res);
+}
+
+float	ft_diff_lght(t_vec3 nrmlz, t_vec3 inter_point, t_main *data)
+{
+	t_vec3	spot;
+	t_vec3	tmp;
+	float	res;
+
+	tmp = ft_sub(&(data->scene.lght.pos), &inter_point);
+	spot = ft_norm(&tmp);
+	res = ft_dot(&nrmlz, &spot);
+	return (res * data->scene.lght.bright);
+}
+
+float	ft_spec_lght(t_vec3	nrmlz, t_vec3 direction, t_vec3 inter_point, t_main *data)
+{
+	float	bright;
+	t_vec3	reflect;
+	t_vec3	spot;
+	t_vec3	tmp;
+
+	bright = data->scene.lght.bright;
+	tmp = ft_sub(&(data->scene.lght.bright), &inter_point);
+	spot = ft_norm(&tmp);
+	reflect = ft_reflect(&direction, &nrmlz);
+	return (pow(f_max(ft_dot(&reflect, &spot), 0), 32) * bright);
 }
 
 int	ft_lighting(t_main *data, t_shapes *shape, t_vec3 *direction, float dist)
@@ -219,25 +309,28 @@ int	ft_lighting(t_main *data, t_shapes *shape, t_vec3 *direction, float dist)
 	int		clr;
 
 	tmp = ft_s_mul(direction, dist);
-	inter_point = ft_add(data->scene.cam.origin, tmp);
+	inter_point = ft_add(&(data->scene.cam.origin), &tmp);
 	if (shape->type == SPHERE)
 	{
-		tmp = ft_add(inter_point, shape->pos);
+		tmp = ft_add(&inter_point, &(shape->pos));
 		nrmlz = ft_norm(&tmp);
 	}
 	else if (shape->type == PLANE)
-		nrmlz = ft_norm(shape->direction);
+		nrmlz = ft_norm(&(shape->direction));
 	else if (shape->type == CYLINDER)
 		nrmlz = ft_cylinder_norm(shape, &inter_point);
 	drop = ft_drop_shadow(data, shape, &inter_point);
-	if (drop == 0)
-	{
+	clr = ft_add_clr3(ft_mul_clr(shape->clr, data->scene.amb.bright), \
+	ft_mul_clr(shape->clr, ft_diff_lght(nrmlz, inter_point, data) * DIFF), \
+	ft_mul_clr(shape->clr, ft_spec_lght(nrmlz, *direction, inter_point, data) * SPEC));
+	// if (drop == 0)
+	// {
 		
-	}
-	else if (drop == 1)
-	{
+	// }
+	// else if (drop == 1)
+	// {
 		
-	}
+	// }
 	return (clr);
 }
 
@@ -276,7 +369,7 @@ void	ft_draw_loop(t_main *data, t_scene *scene, t_mlx *mlx)
 	float	dst;
 
 	y = -1;
-	ft_new_image(mlx);
+	ft_new_image(data, mlx);
 	dst = WIDTH / (2 * tanf(scene->cam.fov * M_PI / 360));
 	while (++y < HEIGHT)
 	{

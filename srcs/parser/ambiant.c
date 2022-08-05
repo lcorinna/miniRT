@@ -6,13 +6,13 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:49:03 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 16:35:04 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:00:09 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-void	ft_check_repetitions(t_main *data, char *str, char *type, int flag)
+void	ft_check_repetitions(t_main *data, char *str, char *type)
 {
 	if (ft_strncmp("A", type, 2) == 0 && data->scene.amb.flag != 0 || \
 		ft_strncmp("C", type, 2) == 0 && data->scene.cam.flag != 0 || \
