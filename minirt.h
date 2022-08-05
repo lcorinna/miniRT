@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/04 20:48:37 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/05 16:35:27 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_ambient
 {
 	float			bright;
 	t_vec3			clr;
+	int				flag;
 }	t_ambient;
 
 typedef struct s_camera
@@ -59,6 +60,7 @@ typedef struct s_camera
 	float			fov;
 	float			angle_y;
 	float			angle_z;
+	int				flag;
 }	t_camera;
 
 typedef struct s_light
@@ -66,6 +68,7 @@ typedef struct s_light
 	t_vec3			pos;
 	float			bright;
 	t_vec3			clr;
+	int				flag;
 }	t_light;
 
 typedef struct s_shapes
@@ -139,6 +142,7 @@ t_vec3		ft_pars_clr(t_main *data, char *str, t_vec3	clr);
 t_vec3		ft_point_in_space(t_main *data, char *str);
 
 /* ambiant */
+void		ft_type_selection(t_main *data, char *type, char *str);
 void		ft_ambiant(t_main *data, char *type, char *str);
 float		ft_ratio_ambiant(t_main *data, char *str, float bright);
 
@@ -201,7 +205,7 @@ int			ft_buttons(int key, t_main *data);
 int			ft_exit_cross(int key, t_main *data);
 
 /* program_completion */
-int			ft_exit(t_main *data, char *str, int flag);
+void		ft_exit(t_main *data, char *str, int flag);
 
 #endif
 

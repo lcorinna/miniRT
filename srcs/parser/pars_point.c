@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:54:32 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/04 18:54:40 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/05 16:37:08 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ float	ft_pre_assembly(char *str, int *i, float *res)
 		if (dec == MAXFLOAT)
 			return (MAXFLOAT);
 		*res += dec;
-		// printf("dec - %f\n", dec); //del
-		// printf("res - %f\n", *res); //del
 	}
 	if (str[*i] == ',')
 		(*i)++;
@@ -97,13 +95,13 @@ t_vec3	ft_point_in_space(t_main *data, char *str)
 	y = ft_pre_assembly(str, &i, &y);
 	// printf("point y - %f\n", origin.y);//del
 	z = ft_pre_assembly(str, &i, &z);
-	// printf("point z - %f\n\n", origin.z);//del
-	if (x == MAXFLOAT || y == MAXFLOAT || z == MAXFLOAT)
+	// printf("QWERTY - str %s\n", str[(--(&i))]); //del
+	i--;
+	if (x == MAXFLOAT || y == MAXFLOAT || z == MAXFLOAT || (str[i]) == ',')
 	{
 		origin = ft_new_vec3(MAXFLOAT, MAXFLOAT, MAXFLOAT);
 		return (origin);
 	}
 	origin = ft_new_vec3(x, y, z);
-	// printf("str - %s\n", str + i); //del
 	return (origin);
 }

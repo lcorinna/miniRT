@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 18:13:30 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/04 20:41:56 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/05 15:02:11 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ t_light	ft_new_light(t_vec3 *position, float bright, t_vec3 *color)
 {
 	t_light	new;
 
+	new = (t_light){};
 	new.pos = *position;
 	new.bright = bright;
 	new.clr = *color;
+	new.flag = 1;
 	return (new);
 }
 

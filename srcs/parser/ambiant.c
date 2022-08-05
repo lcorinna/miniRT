@@ -6,18 +6,38 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:49:03 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/04 20:41:29 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/05 16:35:04 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
+void	ft_check_repetitions(t_main *data, char *str, char *type, int flag)
+{
+	if (ft_strncmp("A", type, 2) == 0 && data->scene.amb.flag != 0 || \
+		ft_strncmp("C", type, 2) == 0 && data->scene.cam.flag != 0 || \
+		ft_strncmp("L", type, 2) == 0 && data->scene.lght.flag != 0)
+	{
+		// printf("address - %p\n", data->scene.amb); //del
+		// printf("color - %f\n", data->scene.amb.clr.x); //del
+		// printf("color - %f\n", data->scene.amb.clr.y); //del
+		// printf("color - %f\n", data->scene.amb.clr.z); //del
+		// printf("color - %f\n", data->scene.amb.bright); //del
+		ft_putstr_fd("The value of type \"", 2);
+		ft_putstr_fd(type, 2);
+		ft_putstr_fd("\" already exists.", 2);
+		ft_exit(data, "Check the scene map and try again.\n", 1);
+	}
+}
+
 t_ambient	ft_new_amb(float bright, t_vec3 *clr)
 {
 	t_ambient	new;
 
+	new = (t_ambient){};
 	new.bright = bright;
 	new.clr = *clr;
+	new.flag = 1;
 	return (new);
 }
 

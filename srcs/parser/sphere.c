@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:29:57 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/04 20:42:44 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/05 16:38:31 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	ft_sphere(t_main *data, char *str)
 	center = ft_point_in_space(data, str + i);
 	i = ft_search_next_value(str, i, 2);
 	diameter = ft_found_diameter(str + i);
-	// printf("alan - %f\n", diameter); //del
 	i = ft_search_next_value(str, i, 2);
 	color = ft_pars_clr(data, str + i, color);
 	sphere = ft_new_sphere(&center, &color, diameter);
@@ -99,8 +98,6 @@ void	ft_sphere(t_main *data, char *str)
 		ft_data_entry_error(str, sphere);
 		return ;
 	}
-	// printf("sphere - 	%p\n", &sphere); //del
-	// printf("sh - 		%p\n", data->scene.sh); //del
 	ft_shape_add_back(&data->scene.sh, sphere);
 	printf("SPHERE DONE\n"); //del
 }

@@ -6,13 +6,13 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 19:20:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/04 20:48:23 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/05 14:23:19 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-int	ft_exit(t_main *data, char *str, int flag)
+void	ft_exit(t_main *data, char *str, int flag)
 {
 	if (data->scene.sh != NULL)
 	{
