@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/06 18:31:18 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/06 23:17:47 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,13 +193,7 @@ float		ft_dist(t_vec3 a, t_vec3 b);
 t_vec3		ft_reflect(t_vec3 *rd, t_vec3 *n);
 
 /* draw */
-int			ft_initialization(t_main *data);
 void		ft_draw_loop(t_main *data, t_scene *scene, t_mlx *mlx);
-
-/* calibration */
-void		ft_calibration(t_main *data, t_scene *scene, t_camera *cam);
-
-void		ft_ray_tracing(t_main *data, void *mlx, void *window, t_scene *scene);
 
 // t_vec2		ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_sphere *sphere);
 // float		ft_sphere_intersect(t_shapes *sphere, t_vec3 *cam_origin, t_vec3 *direction);

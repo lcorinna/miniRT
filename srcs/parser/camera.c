@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+// /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:19:55 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 15:03:10 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/06 19:31:38 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_camera	ft_new_camera(t_vec3 *origin, t_vec3 *direction, float fov)
 	new = (t_camera){};
 	new.origin = *origin;
 	new.direction = *direction;
+	// new.direction = ft_norm(direction); //del
 	new.fov = fov;
 	new.angle_y = 0;
 	new.angle_z = 0;

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:53:30 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 16:12:14 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/06 22:41:35 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@ t_vec3	ft_pars_clr(t_main *data, char *str, t_vec3	clr)
 
 	i = 0;
 	r = ft_pars_one_clr(str, &i);
-	// printf("r - %f\n", r); //del
+	if (r == 0)
+		r = 15;
 	g = ft_pars_one_clr(str, &i);
-	// printf("g - %f\n", g); //del
+	if (g == 0)
+		g = 15;
 	b = ft_pars_one_clr(str, &i);
-	// printf("b - %f\n", b); //del
+	if (b == 0)
+		b = 15;
 	i--;
 	if (r < 0.0 || r > 255.0 || g < 0.0 || g > 255.0 || b < 0.0 || b > 255.0 \
 															|| str[i] == ',')

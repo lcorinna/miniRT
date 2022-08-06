@@ -6,34 +6,11 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:38:49 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/06 18:32:11 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/06 23:17:51 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
-
-t_mlx	ft_new_mlx(t_main *data)
-{
-	t_mlx	new;
-
-	new = (t_mlx){};
-	new.mlx = mlx_init();
-	if (!new.mlx)
-		ft_exit(data, "mlx_init error\n", 2);
-	new.win = mlx_new_window(new.mlx, WIDTH, HEIGHT, data->n_wndw);
-	if (!new.win)
-		ft_exit(data, "mlx_new_window error\n", 2);
-	return (new);
-}
-
-int	ft_initialization(t_main *data)
-{
-	data->mlx = ft_new_mlx(data);
-	// mlx_hook(data->mlx.win, 2, 1L << 0, ft_buttons, data);
-	// mlx_hook(data->mlx.win, 17, 0, ft_exit_cross, data);
-	// mlx_hook(mlx->win_ptr, 02, 1L << 0, esc_key, (void *)mlx);
-	return (0);
-}
 
 void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 {
@@ -91,17 +68,17 @@ t_vec3	ft_rotate_dir(t_camera *cam, t_vec3 *dir)
 
 float	ft_plane_intersect(t_shapes *plane, t_vec3 *cam_origin, t_vec3 *direction)
 {
-	float	res;
+	// float	res;
 	float	t;
 	t_vec3	subtraction;
 	float	dot_product_1;
 	float	dot_product_2;
 
-	res = ft_dist(*cam_origin, plane->pos);
+	// res = ft_dist(*cam_origin, plane->pos);
 	subtraction = ft_sub(cam_origin, &plane->pos);
 	dot_product_1 = ft_dot(&subtraction, &plane->direction);
 	dot_product_2 = ft_dot(direction, &plane->direction);
-	t = -(dot_product_1 / dot_product_2);
+	t = -dot_product_1 / dot_product_2;
 	return (t);
 }
 
@@ -125,6 +102,7 @@ float	ft_cylinder_intersect(t_shapes *cyl, t_vec3 *cam_origin, t_vec3 *direction
 	t_vec3	ca;
 	t_vec3	tmp;
 
+	res = 0; //del
 	tmp = ft_s_mul(&cyl->direction, cyl->height);
 	tmp = ft_add(&cyl->pos, &tmp);
 	ca = ft_sub(&tmp, &cyl->pos);
@@ -146,72 +124,72 @@ float	ft_cylinder_intersect(t_shapes *cyl, t_vec3 *cam_origin, t_vec3 *direction
 	return (0);
 }
 
-// float	ft_sphere_intersect(t_shapes *sphere, t_vec3 *cam_origin, t_vec3 *direction)
-// {
-// 	float	b; //сделать еще одну структуру =D //см. пересечение цилиндра
-// 	float	c;
-// 	float	discr;
-// 	float	dist_1;
-// 	float	dist_2;
-// 	float	min;
-// 	float	max;
-// 	float	res;
-// 	t_vec3	cam_sphere;
+float	ft_sphere_intersect(t_shapes *sphere, t_vec3 *cam_origin, t_vec3 *direction)
+{
+	float	b; //сделать еще одну структуру =D //см. пересечение цилиндра
+	float	c;
+	float	discr;
+	float	dist_1;
+	float	dist_2;
+	float	min;
+	float	max;
+	float	res;
+	t_vec3	cam_sphere;
 
-// 	cam_sphere = ft_sub(cam_origin, &sphere->pos);
-// 	b = 2 * (ft_dot(&cam_sphere, direction));
-// 	c = ft_dot(&cam_sphere, &cam_sphere) - (sphere->rad * sphere->rad);
-// 	discr = (b * b) - (4 * c);
-// 	if (discr < 0)
-// 		return (0);
-// 	dist_1 = ((b * (-1)) - sqrt(discr)) / 2;
-// 	dist_2 = ((b * (-1)) + sqrt(discr)) / 2;
-// 	min = fminf(dist_1, dist_2);
-// 	max = fmaxf(dist_1, dist_2);
-// 	if (min >= 0)
-// 		res = min;
+	cam_sphere = ft_sub(cam_origin, &sphere->pos);
+	b = 2 * (ft_dot(&cam_sphere, direction));
+	c = ft_dot(&cam_sphere, &cam_sphere) - (sphere->rad * sphere->rad);
+	discr = (b * b) - (4 * c);
+	if (discr < 0)
+		return (0);
+	dist_1 = ((b * (-1)) - sqrt(discr)) / 2;
+	dist_2 = ((b * (-1)) + sqrt(discr)) / 2;
+	min = fminf(dist_1, dist_2);
+	max = fmaxf(dist_1, dist_2);
+	if (min >= 0)
+		res = min;
+	else
+		res = max;
+	return (res);
+}
+
+// static float	inter_sphere2(float b, float d)
+// {
+// 	float	t1;
+// 	float	t2;
+// 	float	min_t;
+// 	float	max_t;
+// 	float	t;
+
+// 	t1 = -b + sqrtf(d);
+// 	t2 = -b - sqrtf(d);
+// 	min_t = fminf(t1, t2);
+// 	max_t = fmaxf(t1, t2);
+// 	if (min_t >= 0)
+// 		t = min_t;
 // 	else
-// 		res = max;
-// 	return (res);
+// 		t = max_t;
+// 	return (t);
 // }
 
-static float	inter_sphere2(float b, float d)
-{
-	float	t1;
-	float	t2;
-	float	min_t;
-	float	max_t;
-	float	t;
+// float	ft_sphere_intersect(t_shapes *sphere, t_vec3 *camera, t_vec3 *dir)
+// {
+// 	float		radius;
+// 	float		b;
+// 	float		c;
+// 	float		d;
+// 	t_vec3		k;
 
-	t1 = -b + sqrtf(d);
-	t2 = -b - sqrtf(d);
-	min_t = fminf(t1, t2);
-	max_t = fmaxf(t1, t2);
-	if (min_t >= 0)
-		t = min_t;
-	else
-		t = max_t;
-	return (t);
-}
-
-float	ft_sphere_intersect(t_shapes *sphere, t_vec3 *camera, t_vec3 *dir)
-{
-	float		radius;
-	float		b;
-	float		c;
-	float		d;
-	t_vec3		k;
-
-	radius = sphere->diameter / 2;
-	k = ft_sub(camera, &(sphere->pos));
-	b = ft_dot(&k, dir);
-	c = ft_dot(&k, &k) - radius * radius;
-	d = b * b - c;
-	if (d >= 0)
-		return (inter_sphere2(b, d));
-	else
-		return (0);
-}
+// 	radius = sphere->diameter / 2;
+// 	k = ft_sub(camera, &(sphere->pos));
+// 	b = ft_dot(&k, dir);
+// 	c = ft_dot(&k, &k) - radius * radius;
+// 	d = b * b - c;
+// 	if (d >= 0)
+// 		return (inter_sphere2(b, d));
+// 	else
+// 		return (0);
+// }
 
 float	ft_find_dist(t_shapes *sh, t_vec3 *cam_origin, t_vec3 *direction)
 {
@@ -270,7 +248,6 @@ float	ft_drop_shadow(t_main *data, t_shapes *shape, t_vec3 *inter_point)
 		{
 			if (dist > 0 && dist < ft_dist(*inter_point, data->scene.lght.pos) \
 			&& tmp != shape)
-// && tmp->pos != shape->pos && tmp->clr != shape->clr) //возможно нужно больше условий
 				return (1);
 		}
 		tmp = tmp->next;
@@ -311,7 +288,7 @@ int	ft_add_clr3(int c1, int c2, int c3)
 		b = 255;
 	else if (b < 0)
 		b = 0;
-	res = (r << 16) | (g << 8) | b;
+	res = r << 16 | g << 8 | b;
 	return (res);
 }
 
@@ -405,7 +382,7 @@ int	ft_lighting(t_main *data, t_shapes *shape, t_vec3 *direction, float dist)
 	inter_point = ft_add(&(data->scene.cam.origin), &tmp);
 	if (shape->type == SPHERE)
 	{
-		tmp = ft_add(&inter_point, &(shape->pos));
+		tmp = ft_sub(&inter_point, &(shape->pos));
 		nrmlz = ft_norm(&tmp);
 	}
 	else if (shape->type == PLANE)
@@ -464,6 +441,7 @@ void	ft_draw_loop(t_main *data, t_scene *scene, t_mlx *mlx)
 	while (++y < HEIGHT)
 	{
 		x = -1;
+		// printf("HERE\n"); //del	
 		while (++x < WIDTH)
 		{
 			direction = ft_find_dir(dst, x, y, ft_norm(&scene->cam.direction));
@@ -473,5 +451,6 @@ void	ft_draw_loop(t_main *data, t_scene *scene, t_mlx *mlx)
 		}
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
-	mlx_destroy_image(mlx->img, mlx->addr);
+	// mlx_destroy_image(mlx->img, mlx->addr); //если это оставить, то сегается
 }
+ 

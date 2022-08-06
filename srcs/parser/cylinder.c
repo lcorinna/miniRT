@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:11:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 16:36:45 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/06 21:55:08 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_shapes	*ft_new_cylinder(t_vec3 *position, t_vec3 *direction, \
 	*new = (t_shapes){};
 	new->type = CYLINDER;
 	new->pos = *position;
-	new->pos = *direction;
+	new->direction = *direction;
 	new->clr = *color;
 	new->diameter = diameter;
 	new->rad = diameter / 2;
@@ -59,4 +59,7 @@ void	ft_cylinder(t_main *data, char *str, int i)
 	cylinder->height = height;
 	ft_shape_add_back(&data->scene.sh, cylinder);
 	printf("CYLINDER DONE\n"); //del
+	// printf("or - %f %f %f\n", or_dir->x, or_dir->y, or_dir->z); //del
+	// printf("or - %f %f %f\n", or_dir->x, or_dir->y, or_dir->z); //del
+	// sleep(100); //del
 }
