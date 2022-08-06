@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 17:24:15 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/06 17:34:44 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	printf("main %f\n", data.scene.sh->pos.x); //del
 	// printf("HERE\n"); //del
 	// ft_calibration(&data, data.scene, data.scene->cam);
-	// ft_initialization(&data); 
+	ft_initialization(&data); 
 	ft_draw_loop(&data, &data.scene, &data.mlx);
 	mlx_loop(&data.mlx.mlx);
 	return (0);

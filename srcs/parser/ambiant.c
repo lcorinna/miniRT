@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:49:03 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 19:00:09 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/06 17:54:48 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_check_repetitions(t_main *data, char *str, char *type)
 		// printf("color - %f\n", data->scene.amb.bright); //del
 		ft_putstr_fd("The value of type \"", 2);
 		ft_putstr_fd(type, 2);
-		ft_putstr_fd("\" already exists.", 2);
+		ft_putstr_fd("\" already exists. ", 2);
 		ft_exit(data, "Check the scene map and try again.\n", 1);
 	}
 }

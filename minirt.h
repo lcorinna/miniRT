@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 19:02:11 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:31:18 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ void		ft_calibration(t_main *data, t_scene *scene, t_camera *cam);
 void		ft_ray_tracing(t_main *data, void *mlx, void *window, t_scene *scene);
 
 // t_vec2		ft_sphere_intersect(t_camera *cam, t_vec3 *ray, t_sphere *sphere);
-float		ft_sphere_intersect(t_shapes *sphere, t_vec3 *cam_origin, t_vec3 *direction);
+// float		ft_sphere_intersect(t_shapes *sphere, t_vec3 *cam_origin, t_vec3 *direction);
 int			ft_pxl_color(t_main *data, t_scene *scene, t_shapes *sh, t_vec3 *ray);
 
 /* buttons */

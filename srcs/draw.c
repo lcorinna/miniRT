@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:38:49 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 19:05:12 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:32:11 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ t_mlx	ft_new_mlx(t_main *data)
 int	ft_initialization(t_main *data)
 {
 	data->mlx = ft_new_mlx(data);
-	mlx_hook(data->mlx.win, 2, 1L << 0, ft_buttons, data);
-	mlx_hook(data->mlx.win, 17, 0, ft_exit_cross, data);
+	// mlx_hook(data->mlx.win, 2, 1L << 0, ft_buttons, data);
+	// mlx_hook(data->mlx.win, 17, 0, ft_exit_cross, data);
 	// mlx_hook(mlx->win_ptr, 02, 1L << 0, esc_key, (void *)mlx);
 	return (0);
 }
@@ -49,7 +49,7 @@ void	ft_new_image(t_main *data, t_mlx *mlx)
 	if (mlx->img == NULL)
 		ft_exit(data, "mlx_new_image error\n", 2);
 	mlx->addr = mlx_get_data_addr(mlx->img, \
-							mlx->bits_per_pixel, mlx->line_length, mlx->endian);
+						&mlx->bits_per_pixel, &mlx->line_length, &mlx->endian);
 	if (mlx->addr == NULL)
 		ft_exit(data, "mlx_get_data_addr error\n", 2);
 }
@@ -146,6 +146,73 @@ float	ft_cylinder_intersect(t_shapes *cyl, t_vec3 *cam_origin, t_vec3 *direction
 	return (0);
 }
 
+// float	ft_sphere_intersect(t_shapes *sphere, t_vec3 *cam_origin, t_vec3 *direction)
+// {
+// 	float	b; //сделать еще одну структуру =D //см. пересечение цилиндра
+// 	float	c;
+// 	float	discr;
+// 	float	dist_1;
+// 	float	dist_2;
+// 	float	min;
+// 	float	max;
+// 	float	res;
+// 	t_vec3	cam_sphere;
+
+// 	cam_sphere = ft_sub(cam_origin, &sphere->pos);
+// 	b = 2 * (ft_dot(&cam_sphere, direction));
+// 	c = ft_dot(&cam_sphere, &cam_sphere) - (sphere->rad * sphere->rad);
+// 	discr = (b * b) - (4 * c);
+// 	if (discr < 0)
+// 		return (0);
+// 	dist_1 = ((b * (-1)) - sqrt(discr)) / 2;
+// 	dist_2 = ((b * (-1)) + sqrt(discr)) / 2;
+// 	min = fminf(dist_1, dist_2);
+// 	max = fmaxf(dist_1, dist_2);
+// 	if (min >= 0)
+// 		res = min;
+// 	else
+// 		res = max;
+// 	return (res);
+// }
+
+static float	inter_sphere2(float b, float d)
+{
+	float	t1;
+	float	t2;
+	float	min_t;
+	float	max_t;
+	float	t;
+
+	t1 = -b + sqrtf(d);
+	t2 = -b - sqrtf(d);
+	min_t = fminf(t1, t2);
+	max_t = fmaxf(t1, t2);
+	if (min_t >= 0)
+		t = min_t;
+	else
+		t = max_t;
+	return (t);
+}
+
+float	ft_sphere_intersect(t_shapes *sphere, t_vec3 *camera, t_vec3 *dir)
+{
+	float		radius;
+	float		b;
+	float		c;
+	float		d;
+	t_vec3		k;
+
+	radius = sphere->diameter / 2;
+	k = ft_sub(camera, &(sphere->pos));
+	b = ft_dot(&k, dir);
+	c = ft_dot(&k, &k) - radius * radius;
+	d = b * b - c;
+	if (d >= 0)
+		return (inter_sphere2(b, d));
+	else
+		return (0);
+}
+
 float	ft_find_dist(t_shapes *sh, t_vec3 *cam_origin, t_vec3 *direction)
 {
 	float	distance;
@@ -222,24 +289,24 @@ int	ft_rgb(int color, char level)
 	return (0);
 }
 
-int	ft_add_color3(int c1, int c2, int c3)
+int	ft_add_clr3(int c1, int c2, int c3)
 {
 	int	res;
 	int	r;
 	int	g;
 	int	b;
 
-	r = rgb(c1, 'R') + rgb(c2, 'R') + rgb(c3, 'R');
+	r = ft_rgb(c1, 'R') + ft_rgb(c2, 'R') + ft_rgb(c3, 'R');
 	if (r > 255)
 		r = 255;
 	else if (r < 0)
 		r = 0;
-	g = rgb(c1, 'G') + rgb(c2, 'G') + rgb(c3, 'G');
+	g = ft_rgb(c1, 'G') + ft_rgb(c2, 'G') + ft_rgb(c3, 'G');
 	if (g > 255)
 		g = 255;
 	else if (g < 0)
 		g = 0;
-	b = rgb(c1, 'B') + rgb(c2, 'B') + rgb(c3, 'B');
+	b = ft_rgb(c1, 'B') + ft_rgb(c2, 'B') + ft_rgb(c3, 'B');
 	if (b > 255)
 		b = 255;
 	else if (b < 0)
@@ -294,10 +361,36 @@ float	ft_spec_lght(t_vec3	nrmlz, t_vec3 direction, t_vec3 inter_point, t_main *d
 	t_vec3	tmp;
 
 	bright = data->scene.lght.bright;
-	tmp = ft_sub(&(data->scene.lght.bright), &inter_point);
+	tmp = ft_sub(&(data->scene.lght.pos), &inter_point);
 	spot = ft_norm(&tmp);
 	reflect = ft_reflect(&direction, &nrmlz);
-	return (pow(f_max(ft_dot(&reflect, &spot), 0), 32) * bright);
+	return (pow(fmax(ft_dot(&reflect, &spot), 0), 32) * bright);
+}
+
+int	ft_add_clr(int color, int coef)
+{
+	int	r;
+	int	g;
+	int	b;
+	int	res;
+
+	r = ft_rgb(color, 'R') + coef;
+	if (r > 255)
+		r = 255;
+	else if (r < 0)
+		r = 0;
+	g = ft_rgb(color, 'G') + coef;
+	if (g > 255)
+		g = 255;
+	else if (g < 0)
+		g = 0;
+	b = ft_rgb(color, 'B') + coef;
+	if (b > 255)
+		b = 255;
+	else if (b < 0)
+		b = 0;
+	res = (r << 16) | (g << 8) | b;
+	return (res);
 }
 
 int	ft_lighting(t_main *data, t_shapes *shape, t_vec3 *direction, float dist)
@@ -320,17 +413,14 @@ int	ft_lighting(t_main *data, t_shapes *shape, t_vec3 *direction, float dist)
 	else if (shape->type == CYLINDER)
 		nrmlz = ft_cylinder_norm(shape, &inter_point);
 	drop = ft_drop_shadow(data, shape, &inter_point);
-	clr = ft_add_clr3(ft_mul_clr(shape->clr, data->scene.amb.bright), \
-	ft_mul_clr(shape->clr, ft_diff_lght(nrmlz, inter_point, data) * DIFF), \
-	ft_mul_clr(shape->clr, ft_spec_lght(nrmlz, *direction, inter_point, data) * SPEC));
-	// if (drop == 0)
-	// {
-		
-	// }
-	// else if (drop == 1)
-	// {
-		
-	// }
+	if (drop == 0)
+		clr = ft_add_clr3(ft_mul_clr(shape->clr, data->scene.amb.bright), \
+		ft_mul_clr(shape->clr, ft_diff_lght(nrmlz, inter_point, data) * DIFF), \
+		ft_mul_clr(shape->clr, ft_spec_lght(nrmlz, *direction, inter_point, data) * SPEC));
+	else if (drop == 1)
+		clr = ft_add_clr(ft_add_clr3(ft_mul_clr(shape->clr, data->scene.amb.bright), \
+		ft_mul_clr(shape->clr, ft_diff_lght(nrmlz, inter_point, data) * DIFF), 0), \
+		SHADOW);
 	return (clr);
 }
 
@@ -378,7 +468,7 @@ void	ft_draw_loop(t_main *data, t_scene *scene, t_mlx *mlx)
 		{
 			direction = ft_find_dir(dst, x, y, ft_norm(&scene->cam.direction));
 			direction = ft_rotate_dir(&scene->cam, &direction);
-			clr = ft_intersection(data, &data->scene.sh, direction);
+			clr = ft_intersection(data, data->scene.sh, direction);
 			ft_mlx_pixel_put(&data->mlx, x, y, clr);
 		}
 	}

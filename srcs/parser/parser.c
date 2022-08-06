@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 19:01:37 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/06 17:57:29 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_which_element(t_main *data, char *str)
 		j++;
 		type[j] = '\0';
 	}
+	type[j] = '\0';
 	ft_type_selection(data, type, str);
 	free(type);
 }

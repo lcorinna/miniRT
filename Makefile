@@ -6,7 +6,7 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 17:36:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/08/04 18:58:05 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/08/06 17:41:26 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ MINIRT		=	minirt.c program_completion.c \
 				parser/skip_char.c parser/ambiant.c parser/camera.c\
 				parser/light.c parser/shapes_list.c \
 				parser/sphere.c parser/plane.c parser/cylinder.c \
-				vec3_one.c vec3_two.c scene.c
-				# calibration.c
-				# draw.c buttons.c trace_ray.c sphere_interesect.c
+				vec3_one.c vec3_two.c scene.c \
+				draw.c \
+				#trace_ray.c sphere_interesect.c calibration.c buttons.c
 
 OBJ_MINIRT	=	$(SRC:.c=.o)
 
