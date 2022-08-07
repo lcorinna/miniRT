@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/06 23:23:00 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/07 18:50:30 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_initialization(t_main *data)
 	if (!data->mlx.win)
 		ft_exit(data, "mlx_new_window error\n", 2);
 	mlx_hook(data->mlx.win, 17, 1L << 0, ft_exit_cross, data);
-	mlx_hook(data->mlx.win, 2, 1L << 0, ft_buttons, data);
+	mlx_hook(data->mlx.win, 2, 1L << 0, ft_move_light, data);
+	mlx_mouse_hook(data->mlx.win, ft_mouse, data);
 }
 
 int	main(int argc, char **argv)

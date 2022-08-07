@@ -6,20 +6,20 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 17:36:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/08/06 23:18:42 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/08/07 15:58:57 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 N_MINIRT	=	miniRT
 
 MINIRT		=	minirt.c program_completion.c \
-				parser/parser.c parser/parser_utils.c \
+				parser/parser.c parser/parser_utils.c parser/scene.c \
 				parser/pars_color.c parser/pars_point.c \
 				parser/skip_char.c parser/ambiant.c parser/camera.c\
 				parser/light.c parser/shapes_list.c \
 				parser/sphere.c parser/plane.c parser/cylinder.c \
-				vec3_one.c vec3_two.c scene.c \
-				buttons.c \
+				vec3_one.c vec3_two.c \
+				buttons.c mouse.c\
 				draw.c \
 				#trace_ray.c sphere_interesect.c
 

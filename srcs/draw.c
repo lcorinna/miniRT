@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:38:49 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/06 23:17:51 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/07 18:36:57 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ t_vec3	ft_rotate_dir(t_camera *cam, t_vec3 *dir)
 	cut = cam->angle_y;
 	n_x = dir->x * cos(cut) - dir->z * sin(cut);
 	n_z = dir->x * sin(cut) + dir->z * cos(cut);
+	*dir = ft_new_vec3(n_x, dir->y, n_z);
+	*dir = ft_norm(dir);
 	cut = cam->angle_z;
 	n_x = dir->x * cos(cut) - dir->y * sin(cut);
 	n_y = dir->x * sin(cut) + dir->y * cos(cut);
@@ -405,10 +407,11 @@ int	ft_intersection(t_main *data, t_shapes *sh, t_vec3 direction)
 {
 	float		dist;
 	float		dist_min;
-	t_vec3		clr;
 	int			color;
 	t_shapes	*tmp;
+	t_shapes	*res;
 
+	res = NULL;
 	dist_min = MAXFLOAT;
 	color = BLACK;
 	tmp = sh;
@@ -418,12 +421,12 @@ int	ft_intersection(t_main *data, t_shapes *sh, t_vec3 direction)
 		if (dist > 0 && dist < dist_min)
 		{
 			dist_min = dist;
-			// clr = tmp->clr; //это нужно тестировать
-			color = ft_lighting(data, tmp, &direction, dist);
+			res = tmp;
 		}
 		tmp = tmp->next;
 	}
-	// color = ft_get_color(&clr); //это нужно тестировать
+	if (res != NULL)
+		color = ft_lighting(data, res, &direction, dist_min);
 	return (color);
 }
 
@@ -441,7 +444,6 @@ void	ft_draw_loop(t_main *data, t_scene *scene, t_mlx *mlx)
 	while (++y < HEIGHT)
 	{
 		x = -1;
-		// printf("HERE\n"); //del	
 		while (++x < WIDTH)
 		{
 			direction = ft_find_dir(dst, x, y, ft_norm(&scene->cam.direction));

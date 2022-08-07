@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/06 17:57:29 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/07 15:07:46 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_writing_scene(t_main *data)
 {
 	int		i;
 
-	data->scene = (t_scene){};
+	data->scene = ft_new_scene();
 	i = 0;
 	while (data->maps[i])
 	{

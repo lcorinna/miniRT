@@ -6,11 +6,17 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:11:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/06 21:55:08 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/07 15:35:46 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
+
+void	ft_new_cylinder_utils(t_shapes *cylinder, float height, t_main *data)
+{
+	cylinder->height = height;
+	cylinder->data = data;
+}
 
 t_shapes	*ft_new_cylinder(t_vec3 *position, t_vec3 *direction, \
 												float diameter, t_vec3 *color)
@@ -56,10 +62,7 @@ void	ft_cylinder(t_main *data, char *str, int i)
 		ft_data_entry_error(str, cylinder);
 		return ;
 	}
-	cylinder->height = height;
+	ft_new_cylinder_utils(cylinder, height, data);
 	ft_shape_add_back(&data->scene.sh, cylinder);
 	printf("CYLINDER DONE\n"); //del
-	// printf("or - %f %f %f\n", or_dir->x, or_dir->y, or_dir->z); //del
-	// printf("or - %f %f %f\n", or_dir->x, or_dir->y, or_dir->z); //del
-	// sleep(100); //del
 }

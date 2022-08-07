@@ -6,20 +6,17 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:30:37 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/02 15:17:48 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/07 15:07:02 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../../minirt.h"
 
-t_scene	ft_new_scene(t_ambient *ambient, t_camera *cam, t_light *light, t_shapes *sh)
+t_scene	ft_new_scene(void)
 {
 	t_scene	new;
 
-	new.amb = *ambient;
-	new.cam = *cam;
-	new.lght = *light;
-	new.sh = sh;
+	new = (t_scene){};
 	new.width = WIDTH;
 	new.height = HEIGHT;
 	return (new);

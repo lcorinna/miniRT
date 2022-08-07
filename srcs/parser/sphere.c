@@ -6,13 +6,14 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:29:57 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 16:38:31 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/07 15:33:07 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-t_shapes	*ft_new_sphere(t_vec3 *center, t_vec3 *color, float diameter)
+t_shapes	*ft_new_sphere(t_vec3 *center, t_vec3 *color, float diameter, \
+																t_main *data)
 {
 	t_shapes	*new;
 
@@ -25,6 +26,7 @@ t_shapes	*ft_new_sphere(t_vec3 *center, t_vec3 *color, float diameter)
 	new->clr = *color;
 	new->diameter = diameter;
 	new->rad = diameter / 2;
+	new->data = data;
 	new->next = NULL;
 	return (new);
 }
@@ -91,7 +93,7 @@ void	ft_sphere(t_main *data, char *str)
 	diameter = ft_found_diameter(str + i);
 	i = ft_search_next_value(str, i, 2);
 	color = ft_pars_clr(data, str + i, color);
-	sphere = ft_new_sphere(&center, &color, diameter);
+	sphere = ft_new_sphere(&center, &color, diameter, data);
 	if (center.x == MAXFLOAT || diameter == MAXFLOAT || color.x == -1 || \
 																sphere == NULL)
 	{
