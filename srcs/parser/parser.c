@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:38:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/07 15:07:46 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:39:05 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	ft_type_selection(t_main *data, char *type, char *str)
 	{
 		ft_putstr_fd(type, 2);
 		ft_putstr_fd(": has an unidentified type\n", 2);
-		// sleep (10); //del
 	}
 }
 
@@ -47,8 +46,8 @@ void	ft_which_element(t_main *data, char *str)
 	i = 0;
 	j = 0;
 	size = 0;
-	i = ft_skip_invisible_char(str, i); //если есть пробел до знач, то пропускаю
-	size = ft_skip_visible_char(str, i); //считаю тип
+	i = ft_skip_invisible_char(str, i);
+	size = ft_skip_visible_char(str, i);
 	type = malloc(sizeof(char) * (size + 1));
 	if (!type)
 		ft_exit(data, "Memory was not allocated\n", 1);
@@ -103,6 +102,5 @@ int	ft_parser(int argc, char **argv, t_main *data)
 	ft_read_file(data, argv[1]);
 	ft_writing_scene(data);
 	ft_clean_maps(data);
-	printf("\n\n"); //del
 	return (0);
 }

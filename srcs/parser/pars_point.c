@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:54:32 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 16:37:08 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:40:36 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@ int	ft_pre_assembly_utils(char *str, char *diametr, int *i)
 	int	j;
 
 	j = 0;
-	// printf("DDDD %d\n", *i);
 	if (!ft_isdigit(str[*i]))
 		return (1);
 	while (str[*i] != '\0' && str[*i] != '\n' && str[*i] != 32 && j < 10 && \
 			str[*i] != '.' && str[*i] != ',' && (str[*i] < 8 || str[*i] > 14))
 	{
-		// printf("str[%d] - %c\n", *i, str[*i]); //del
 		if (!ft_isdigit(str[*i]))
 			return (1);
 		diametr[j] = str[*i];
@@ -89,13 +87,9 @@ t_vec3	ft_point_in_space(t_main *data, char *str)
 	x = 1;
 	y = 1;
 	z = 1;
-	// printf("point_in_space - %s", str); //del
 	x = ft_pre_assembly(str, &i, &x);
-	// printf("point x - %f\n", origin.x);//del
 	y = ft_pre_assembly(str, &i, &y);
-	// printf("point y - %f\n", origin.y);//del
 	z = ft_pre_assembly(str, &i, &z);
-	// printf("QWERTY - str %s\n", str[(--(&i))]); //del
 	i--;
 	if (x == MAXFLOAT || y == MAXFLOAT || z == MAXFLOAT || (str[i]) == ',')
 	{

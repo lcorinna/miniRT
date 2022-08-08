@@ -1,4 +1,4 @@
-// /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:19:55 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/06 19:31:38 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:41:10 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_camera	ft_new_camera(t_vec3 *origin, t_vec3 *direction, float fov)
 	new = (t_camera){};
 	new.origin = *origin;
 	new.direction = *direction;
-	// new.direction = ft_norm(direction); //del
 	new.fov = fov;
 	new.angle_y = 0;
 	new.angle_z = 0;
@@ -62,9 +61,8 @@ void	ft_camera(t_main *data, char *type, char *str)
 	float	fov;
 
 	i = 0;
-	i = ft_search_next_value(str, i, 1); //пропускаю тип
+	i = ft_search_next_value(str, i, 1);
 	origin = ft_point_in_space(data, str + i);
-	// printf("camera x - %f y - %f z - %f\n", origin.x, origin.y, origin.z); //del
 	i = ft_search_next_value(str, i, 2);
 	direction = ft_point_in_space(data, str + i);
 	i = ft_search_next_value(str, i, 2);
@@ -75,5 +73,4 @@ void	ft_camera(t_main *data, char *type, char *str)
 		return ;
 	}
 	data->scene.cam = ft_new_camera(&origin, &direction, fov);
-	printf("CAMERA DONE\n"); //del
 }

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:11:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/07 15:35:46 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:38:02 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_cylinder(t_main *data, char *str, int i)
 	float		height;
 	t_vec3		color;
 
-	i = ft_search_next_value(str, i, 1); //пропускаю тип
+	i = ft_search_next_value(str, i, 1);
 	or_dir[0] = ft_point_in_space(data, str + i);
 	i = ft_search_next_value(str, i, 2);
 	or_dir[1] = ft_point_in_space(data, str + i);
@@ -64,5 +64,4 @@ void	ft_cylinder(t_main *data, char *str, int i)
 	}
 	ft_new_cylinder_utils(cylinder, height, data);
 	ft_shape_add_back(&data->scene.sh, cylinder);
-	printf("CYLINDER DONE\n"); //del
 }

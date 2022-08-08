@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 18:13:30 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 15:02:11 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:38:22 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,10 @@ void	ft_light(t_main *data, char *str)
 	t_vec3	color;
 
 	i = 0;
-	i = ft_search_next_value(str, i, 1); //пропускаю тип
+	i = ft_search_next_value(str, i, 1);
 	position = ft_point_in_space(data, str + i);
-	// printf("pos - %f\n", position.x); //del
 	i = ft_search_next_value(str, i, 2);
 	bright = ft_ratio_ambiant(data, str + i, bright);
-	// printf("br - %f\n", bright); //del
 	i = ft_search_next_value(str, i, 2);
 	color = ft_pars_clr(data, str + i, color);
 	if (position.x == MAXFLOAT || bright == -1 || color.x == -1)
@@ -46,5 +44,4 @@ void	ft_light(t_main *data, char *str)
 		return ;
 	}
 	data->scene.lght = ft_new_light(&position, bright, &color);
-	printf("LIGHT DONE\n"); //del
 }

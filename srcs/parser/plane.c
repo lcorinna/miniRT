@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:41:57 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/07 15:32:17 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:39:12 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_plane(t_main *data, char *str)
 	t_vec3		color;
 
 	i = 0;
-	i = ft_search_next_value(str, i, 1); //пропускаю тип
+	i = ft_search_next_value(str, i, 1);
 	origin = ft_point_in_space(data, str + i);
 	i = ft_search_next_value(str, i, 2);
 	direction = ft_point_in_space(data, str + i);
@@ -52,5 +52,4 @@ void	ft_plane(t_main *data, char *str)
 		return ;
 	}
 	ft_shape_add_back(&data->scene.sh, plane);
-	printf("PLANE DONE\n"); //del
 }

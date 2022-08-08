@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:53:39 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/04 20:49:42 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:38:42 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	ft_writing_array(t_main *data, int count, char *f_name)
 	while (count != 0)
 	{
 		data->maps[i] = get_next_line(data->fd);
-		// printf("data->maps[%d] - %s\n", i, data->maps[i]); //del
 		if (data->maps[i] == NULL)
 			ft_exit(data, "Memory was not allocated\n", 1);
 		i++;
