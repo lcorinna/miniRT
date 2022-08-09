@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayajirob <ayajirob@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 13:19:55 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/09 19:12:47 by lcorinna         ###   ########.fr       */
+/*   Created: 2022/06/27 13:19:55 by ayajirob          #+#    #+#             */
+/*   Updated: 2022/08/09 21:10:48 by ayajirob         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_camera(t_main *data, char *type, char *str)
 	fov = ft_fov_cam(str + i);
 	if (origin.x == MAXFLOAT || fov == MAXFLOAT || ft_check_dir(direction))
 	{
-		ft_data_entry_error(str, NULL, 1);
+		ft_data_entry_error(str, NULL, 0);
 		return ;
 	}
 	data->scene.cam = ft_new_camera(&origin, &direction, fov);

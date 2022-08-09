@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ambiant.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayajirob <ayajirob@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 18:49:03 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/09 19:12:40 by lcorinna         ###   ########.fr       */
+/*   Created: 2022/08/01 18:49:03 by ayajirob          #+#    #+#             */
+/*   Updated: 2022/08/09 21:10:46 by ayajirob         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_ambiant(t_main *data, char *type, char *str)
 	color = ft_pars_clr(data, str + i, color);
 	if (bright == -1 || color.x == -1)
 	{
-		ft_data_entry_error(str, NULL, 1);
+		ft_data_entry_error(str, NULL, 0);
 		return ;
 	}
 	data->scene.amb = ft_new_amb(bright, &color);
