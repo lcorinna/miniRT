@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 17:36:45 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 16:08:48 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 12:53:37 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_isdigit(int p)
 {
-	// printf("char - %c\n", p); //del
 	if (p >= 48 && p <= 57)
 		return (1);
 	else

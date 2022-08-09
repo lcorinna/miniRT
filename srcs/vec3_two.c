@@ -6,30 +6,18 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:56 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/05 18:54:35 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 16:02:14 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-t_vec3	ft_add(t_vec3 *a, t_vec3 *b)
+float	ft_length(t_vec3 a)
 {
-	t_vec3	addition;
+	float	length;
 
-	addition.x = a->x + b->x;
-	addition.y = a->y + b->y;
-	addition.z = a->z + b->z;
-	return (addition);
-}
-
-t_vec3	ft_add3(t_vec3 *a, t_vec3 *b, t_vec3 *c)
-{
-	t_vec3	addition3;
-
-	addition3.x = a->x + b->x + c->x;
-	addition3.y = a->y + b->y + c->y;
-	addition3.z = a->z + b->z + c->z;
-	return (addition3);
+	length = sqrt((a.x * a.x) + (a.y * a.y) + (a.z * a.z));
+	return (length);
 }
 
 t_vec3	ft_mul(t_vec3 *a, t_vec3 *b)
@@ -52,6 +40,14 @@ t_vec3	ft_s_mul(t_vec3 *a, float value)
 	return (scalar_multiplication);
 }
 
+float	ft_dot(t_vec3 *a, t_vec3 *b)
+{
+	float	dot_product;
+
+	dot_product = ((a->x * b->x) + (a->y * b->y) + (a->z * b->z));
+	return (dot_product);
+}
+
 t_vec3	ft_cross(t_vec3 *a, t_vec3 *b)
 {
 	t_vec3	cross_product;
@@ -62,31 +58,10 @@ t_vec3	ft_cross(t_vec3 *a, t_vec3 *b)
 	return (cross_product);
 }
 
-float	ft_dist(t_vec3 a, t_vec3 b)
-{
-	float	distance;
-	t_vec3	subtraction;
-
-	subtraction = ft_sub(&b, &a);
-	distance = ft_length(subtraction);
-	return (distance);
-}
-
-t_vec3	ft_reflect(t_vec3 *rd, t_vec3 *n)
-{
-	t_vec3	reflect;
-	t_vec3	tmp;
-
-	tmp = ft_s_mul(n, (2 * ft_dot(n, rd)));
-	reflect = ft_sub(rd, &tmp);
-	reflect = ft_norm(&reflect);
-	return (reflect);
-}
-
 /*
-сложение (addition)
+длина (length)
 умножение (multiplication)
 скалярное умножение (scalar multiplication)
+скалярное произведение векторов (dot product)
 векторное произведение (cross product)
-отражение (reflect)
 */

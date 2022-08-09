@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 15:02:34 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/07 20:23:56 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 16:05:32 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ void	ft_left_button(t_main *data, int x, int y)
 	direction = ft_rotate_dir(&(data->scene.cam), &direction);
 	shape = ft_figure_search(data, data->scene.sh, direction);
 	if (shape != NULL)
-	{
-		// printf("type - %d\n", shape->type); //del
 		mlx_hook(data->mlx.win, 2, 1L << 0, ft_move_shape, shape);
-	}
 	else if (shape == NULL)
 		mlx_hook(data->mlx.win, 2, 1L << 0, ft_move_light, data);
 }

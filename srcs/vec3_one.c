@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:56 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/07/29 13:59:50 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 16:02:56 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,26 @@ t_vec3	ft_new_vec3(float x, float y, float z)
 	return (new);
 }
 
+t_vec3	ft_add(t_vec3 *a, t_vec3 *b)
+{
+	t_vec3	addition;
+
+	addition.x = a->x + b->x;
+	addition.y = a->y + b->y;
+	addition.z = a->z + b->z;
+	return (addition);
+}
+
+t_vec3	ft_add3(t_vec3 *a, t_vec3 *b, t_vec3 *c)
+{
+	t_vec3	addition3;
+
+	addition3.x = a->x + b->x + c->x;
+	addition3.y = a->y + b->y + c->y;
+	addition3.z = a->z + b->z + c->z;
+	return (addition3);
+}
+
 t_vec3	ft_sub(t_vec3 *a, t_vec3 *b)
 {
 	t_vec3	subtraction;
@@ -30,14 +50,6 @@ t_vec3	ft_sub(t_vec3 *a, t_vec3 *b)
 	subtraction.y = a->y - b->y;
 	subtraction.z = a->z - b->z;
 	return (subtraction);
-}
-
-float	ft_length(t_vec3 a)
-{
-	float	length;
-
-	length = sqrt((a.x * a.x) + (a.y * a.y) + (a.z * a.z));
-	return (length);
 }
 
 t_vec3	ft_norm(t_vec3 *a)
@@ -52,17 +64,8 @@ t_vec3	ft_norm(t_vec3 *a)
 	return (new);
 }
 
-float	ft_dot(t_vec3 *a, t_vec3 *b)
-{
-	float	dot_product;
-
-	dot_product = ((a->x * b->x) + (a->y * b->y) + (a->z * b->z));
-	return (dot_product);
-}
-
 /*
+сложение (addition)
 вычитание (subtraction)
-длина (length)
 нормализация (normal)
-скалярное произведение векторов (dot product)
 */

@@ -6,7 +6,7 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 17:36:37 by lcorinna          #+#    #+#              #
-#    Updated: 2022/08/07 15:58:57 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/08/09 16:35:16 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,16 +18,16 @@ MINIRT		=	minirt.c program_completion.c \
 				parser/skip_char.c parser/ambiant.c parser/camera.c\
 				parser/light.c parser/shapes_list.c \
 				parser/sphere.c parser/plane.c parser/cylinder.c \
-				vec3_one.c vec3_two.c \
-				buttons.c mouse.c\
-				draw.c \
-				#trace_ray.c sphere_interesect.c
+				vec3_one.c vec3_two.c vec3_three.c\
+				common_buttons.c movement_buttons.c mouse.c \
+				draw.c interesect.c interesect_utils.c \
+				lighting.c add_colors.c \
 
 OBJ_MINIRT	=	$(SRC:.c=.o)
 
 FLAG_MLX	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 
-CFLAGC		=	-Wall -Wextra -Werror -MMD -g -fsanitize=address -O3 -msse4 -march=native # Leaks --atExit -- ./miniRT
+CFLAGC		=	-Wall -Wextra -Werror -MMD -g #-fsanitize=address -O3 -msse4 -march=native # Leaks --atExit -- ./miniRT
 
 SRC_PATH	=	./srcs/
 

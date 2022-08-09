@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/08 16:29:24 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:06:28 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,61 +59,78 @@
 # define ESC 53
 # define PLUS 69
 # define MINUS 78
-// # define 
+# define SH_UP 91
+# define SH_LEFT 86
+# define SH_RIGHT 88
+# define SH_DOWN 84
+# define SH_PLUS 92
+# define SH_MINUS 89
 
 typedef struct s_vec3
 {
-	float			x;
-	float			y;
-	float			z;
+	float				x;
+	float				y;
+	float				z;
 }	t_vec3;
+
+typedef struct s_discrmn
+{
+	float				a;
+	float				b;
+	float				c;
+	float				discr;
+	float				res;
+
+	t_vec3				tmp;
+	t_vec3				ca;
+}	t_discrmn;
 
 typedef struct s_ambient
 {
-	float			bright;
-	t_vec3			clr;
-	int				flag;
+	float				bright;
+	t_vec3				clr;
+	int					flag;
 }	t_ambient;
 
 typedef struct s_camera
 {
-	t_vec3			origin;
-	t_vec3			direction;
-	float			fov;
-	float			angle_y;
-	float			angle_z;
-	int				flag;
+	t_vec3				origin;
+	t_vec3				direction;
+	float				fov;
+	float				angle_y;
+	float				angle_z;
+	int					flag;
 }	t_camera;
 
 typedef struct s_light
 {
-	t_vec3			pos;
-	float			bright;
-	t_vec3			clr;
-	int				flag;
+	t_vec3				pos;
+	float				bright;
+	t_vec3				clr;
+	int					flag;
 }	t_light;
 
 typedef struct s_shapes
 {
 	int					type;
-	t_vec3				pos; //sphere plane cylinder
-	t_vec3				clr; //sphere plane cylinder
-	float				rad; //sphere cylinder
-	t_vec3				direction; //plane cylinder
-	float				diameter; //cylinder
-	float				height; //cylinder
+	t_vec3				pos;
+	t_vec3				clr;
+	float				rad;
+	t_vec3				direction;
+	float				diameter;
+	float				height;
 	struct s_main		*data;
 	struct s_shapes		*next;
 }	t_shapes;
 
 typedef struct s_scene
 {
-	t_ambient		amb;
-	t_camera		cam;
-	t_light			lght;
-	t_shapes		*sh;
-	float			width;
-	float			height;
+	t_ambient			amb;
+	t_camera			cam;
+	t_light				lght;
+	t_shapes			*sh;
+	float				width;
+	float				height;
 }	t_scene;
 
 typedef struct s_mlx
@@ -195,17 +212,19 @@ void		ft_cylinder(t_main *data, char *str, int i);
 
 /* vec3_one */
 t_vec3		ft_new_vec3(float x, float y, float z);
-t_vec3		ft_sub(t_vec3 *a, t_vec3 *b);
-float		ft_length(t_vec3 a);
-t_vec3		ft_norm(t_vec3 *a);
-float		ft_dot(t_vec3 *a, t_vec3 *b);
-
-/* vec3_two */
 t_vec3		ft_add(t_vec3 *a, t_vec3 *b);
 t_vec3		ft_add3(t_vec3 *a, t_vec3 *b, t_vec3 *c);
+t_vec3		ft_sub(t_vec3 *a, t_vec3 *b);
+t_vec3		ft_norm(t_vec3 *a);
+
+/* vec3_two */
+float		ft_length(t_vec3 a);
 t_vec3		ft_mul(t_vec3 *a, t_vec3 *b);
 t_vec3		ft_s_mul(t_vec3 *a, float value);
+float		ft_dot(t_vec3 *a, t_vec3 *b);
 t_vec3		ft_cross(t_vec3 *a, t_vec3 *b);
+
+/* vec3_three */
 float		ft_dist(t_vec3 a, t_vec3 b);
 t_vec3		ft_reflect(t_vec3 *rd, t_vec3 *n);
 
@@ -215,10 +234,30 @@ t_vec3		ft_find_dir(float dst, int x, int y, t_vec3	cam_dir);
 t_vec3		ft_rotate_dir(t_camera *cam, t_vec3 *dir);
 float		ft_find_dist(t_shapes *sh, t_vec3 *cam_origin, t_vec3 *direction);
 
-/* buttons */
+/* interesect */
+int			ft_intersection(t_main *data, t_shapes *sh, t_vec3 direction);
+
+/* interesect_utils */
+float		ft_cylinder_intersect(t_shapes *cyl, t_vec3 *cam_origin, \
+											t_vec3 *direction, t_discrmn box);
+t_vec3		ft_cylinder_norm(t_shapes *cyl, t_vec3 *inter_point);
+
+/* lighting */
+int			ft_lighting(t_main *data, t_shapes *shape, t_vec3 *direction, \
+																	float dist);
+
+/* add_colors */
+int			ft_add_clr3(int c1, int c2, int c3);
+int			ft_add_clr(int color, int coef);
+int			ft_mul_clr(t_vec3 clr, float ratio);
+
+/* common_buttons */
+void		ft_general_scene(int key, t_main *data);
+int			ft_exit_cross(int key, t_main *data);
+
+/* movement_buttons */
 int			ft_move_light(int key, t_main *data);
 int			ft_move_shape(int key, t_shapes *sh);
-int			ft_exit_cross(int key, t_main *data);
 
 /* mouse */
 int			ft_mouse(int button, int x, int y, void *data1);
@@ -227,5 +266,3 @@ int			ft_mouse(int button, int x, int y, void *data1);
 void		ft_exit(t_main *data, char *str, int flag);
 
 #endif
-
-/*  */
