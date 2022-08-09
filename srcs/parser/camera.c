@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:19:55 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/08 19:41:10 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:12:47 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_camera(t_main *data, char *type, char *str)
 	fov = ft_fov_cam(str + i);
 	if (origin.x == MAXFLOAT || fov == MAXFLOAT || ft_check_dir(direction))
 	{
-		ft_data_entry_error(str, NULL);
+		ft_data_entry_error(str, NULL, 1);
 		return ;
 	}
 	data->scene.cam = ft_new_camera(&origin, &direction, fov);

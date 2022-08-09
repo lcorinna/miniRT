@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 18:10:53 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/09 16:24:30 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 18:43:58 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ t_vec3	ft_rotate_shape(t_vec3 direction, float alpha)
 void	ft_move_shape_two(int key, t_shapes *sh)
 {
 	if (key == 83 && (sh->type == PLANE || sh->type == CYLINDER))
-	{
 		sh->direction = ft_rotate_shape(sh->direction, ROTATE);
-	}
 	else if (key == 85 && (sh->type == PLANE || sh->type == CYLINDER))
 		sh->direction = ft_rotate_shape(sh->direction, (-ROTATE));
 	else if (key == MINUS && sh->rad > 10 && \

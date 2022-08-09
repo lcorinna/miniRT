@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 13:11:48 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/08 19:38:02 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:12:16 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_shapes	*ft_new_cylinder(t_vec3 *position, t_vec3 *direction, \
 	*new = (t_shapes){};
 	new->type = CYLINDER;
 	new->pos = *position;
-	new->direction = *direction;
+	new->direction = ft_norm(direction);
 	new->clr = *color;
 	new->diameter = diameter;
 	new->rad = diameter / 2;
@@ -59,7 +59,7 @@ void	ft_cylinder(t_main *data, char *str, int i)
 	if (or_dir[0].x == MAXFLOAT || diameter == MAXFLOAT || color.x == -1 || \
 			height == MAXFLOAT || ft_check_dir(or_dir[1]) || cylinder == NULL)
 	{
-		ft_data_entry_error(str, cylinder);
+		ft_data_entry_error(str, cylinder, 1);
 		return ;
 	}
 	ft_new_cylinder_utils(cylinder, height, data);

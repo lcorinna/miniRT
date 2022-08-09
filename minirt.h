@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:21:25 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/09 17:06:28 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:13:06 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void		ft_check_file(t_main *data, char *f_name);
 void		ft_read_file(t_main *data, char *f_name);
 int			ft_count_lines(t_main *data);
 void		ft_writing_array(t_main *data, int count, char *f_name);
-void		ft_data_entry_error(char *str, t_shapes *shape);
+void		ft_data_entry_error(char *str, t_shapes *shape, int flag);
 
 /* skip_char */
 int			ft_skip_invisible_char(char *str, int i);

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 22:12:27 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/09 14:44:52 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 18:47:09 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_vec3	ft_cylinder_norm(t_shapes *cyl, t_vec3 *inter_point)
 	if (ft_length(ft_sub(inter_point, &cyl->pos)) < cyl->rad)
 		norm = ft_s_mul(&(cyl->pos), -1);
 	else if (ft_length(ft_sub(inter_point, &top_center)) < cyl->rad)
-		norm = cyl->direction;
+		norm = ft_norm(&(cyl->direction));
 	else
 	{
 		tmp = ft_sub(inter_point, &cyl->pos);
@@ -35,6 +35,7 @@ t_vec3	ft_cylinder_norm(t_shapes *cyl, t_vec3 *inter_point)
 		tmp = ft_sub(inter_point, &pt);
 		norm = ft_norm(&tmp);
 	}
+	norm = ft_norm(&norm);
 	return (norm);
 }
 

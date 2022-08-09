@@ -6,16 +6,19 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:53:39 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/08 19:38:42 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:12:05 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-void	ft_data_entry_error(char *str, t_shapes *shape)
+void	ft_data_entry_error(char *str, t_shapes *shape, int flag)
 {
-	if (shape == NULL)
-		free(shape);
+	if (flag)
+	{
+		if (shape != NULL)
+			free(shape);
+	}
 	ft_putstr_fd("Check the line for the correct input\n", 2);
 	ft_putstr_fd(str, 2);
 }

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:41:57 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/08 19:39:12 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:12:25 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_shapes	*ft_new_plane(t_vec3 *position, t_vec3 *color, t_vec3 *direction, \
 	new->type = PLANE;
 	new->pos = *position;
 	new->clr = *color;
-	new->direction = *direction;
+	new->direction = ft_norm(direction);
 	new->data = data;
 	new->next = NULL;
 	return (new);
@@ -48,7 +48,7 @@ void	ft_plane(t_main *data, char *str)
 	plane = ft_new_plane(&origin, &color, &direction, data);
 	if (origin.x == MAXFLOAT || color.x == -1 || ft_check_dir(direction))
 	{
-		ft_data_entry_error(str, plane);
+		ft_data_entry_error(str, plane, 1);
 		return ;
 	}
 	ft_shape_add_back(&data->scene.sh, plane);

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:29:57 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/08 19:40:14 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:12:31 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	ft_sphere(t_main *data, char *str)
 	if (center.x == MAXFLOAT || diameter == MAXFLOAT || color.x == -1 || \
 																sphere == NULL)
 	{
-		ft_data_entry_error(str, sphere);
+		ft_data_entry_error(str, sphere, 1);
 		return ;
 	}
 	ft_shape_add_back(&data->scene.sh, sphere);

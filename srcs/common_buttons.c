@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 16:09:01 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/08/09 17:05:17 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/08/09 18:42:08 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_change_fov(int key, t_main *data)
 {
 	if (key == 12 && data->scene.cam.fov < 180)
 		data->scene.cam.fov += FOV;
-	else if (key == 14 && data->scene.cam.fov > 10)
+	else if (key == 14 && data->scene.cam.fov > 11)
 		data->scene.cam.fov -= FOV;
 }
 
